@@ -12,6 +12,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Fernando De Gante | Portafolio",
   description: "Consultor en tecnología, GovTech y transformación digital.",
+  icons: {
+    icon: "/logo_dg.png",
+    },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

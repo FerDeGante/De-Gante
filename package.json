@@ -9,8 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mailchimp/mailchimp_marketing": "^3.0.80",
     "@netlify/plugin-nextjs": "^5.11.2",
     "bootstrap": "^5.3.6",
+    "mailchimp": "^1.2.1",
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.10",
