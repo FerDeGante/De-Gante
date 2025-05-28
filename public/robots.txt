@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://de-gante.com/sitemap.xml

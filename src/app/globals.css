@@ -1,3 +1,10 @@
+:root {
+  --primary-color: #0b1c2c;
+  --accent-color: #4cbbdb;
+  --secondary-color: #66F0D1;
+  --text-color: #02113a;
+}
+
 body {
   font-family: 'Inter', sans-serif;
 }
@@ -13,7 +20,7 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
   align-items: center;
   padding: 4rem 2rem;
   background-color: #ffffff;
-  color: #02113a;
+  color: var(--text-color);
   flex-wrap: wrap;
 }
 
@@ -39,7 +46,7 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
 .hero-slogan {
     font-size: 0.9rem;
   font-weight: 500;
-  color: #4cbbdb;
+  color: var(--accent-color);
   margin-top: 0.25rem;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -53,7 +60,7 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
 }
 
 .hero-name span {
-  color: #4cbbdb;
+  color: var(--accent-color);
 }
 
 .hero-title {
@@ -63,7 +70,7 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
 }
 
 .text-accent {
-  color: #4cbbdb;
+  color: var(--accent-color);
 }
 
 .hero-description {
@@ -72,7 +79,7 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
 }
 
 .hero-cta {
-  background-color: #66F0D1;
+  background-color: var(--secondary-color);
   color: #00332C;
   padding: 0.75rem 1.5rem;
   text-decoration: none;
@@ -213,7 +220,7 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
 
 .participations-section {
   padding: 4rem 2rem;
-  background-color: #0b1c2c;
+  background-color: var(--primary-color);
   color: white;
   text-align: center;
 }
@@ -296,7 +303,7 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
 
 .projects-section {
   padding: 4rem 2rem;
-  background-color: #0b1c2c;
+  background-color: var(--primary-color);
   color: white;
   text-align: center;
 }
@@ -343,7 +350,7 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
 /* === SERVICES SECTION === */
 
 .services-section {
-  background-color: #0b1c2c;
+  background-color: var(--primary-color);
   color: white;
   padding: 4rem 2rem;
   text-align: center;
@@ -474,7 +481,7 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
 
 .opensource-section {
   padding: 4rem 2rem;
-  background-color: #0b1c2c;
+  background-color: var(--primary-color);
   color: white;
   text-align: center;
 }
