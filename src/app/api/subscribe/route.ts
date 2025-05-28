@@ -7,7 +7,7 @@ mailchimp.setConfig({
 });
 
 export async function POST(req: NextRequest) {
-  const { email } = await req.json();
+  const { name, surname, email } = await req.json();
 
   if (!email) {
     return NextResponse.json({ error: 'Correo electrónico requerido' }, { status: 400 });
@@ -19,6 +19,10 @@ export async function POST(req: NextRequest) {
       {
         email_address: email,
         status: 'subscribed',
+        merge_fields: {
+          FNAME: name || '',
+          LNAME: surname || '',
+        },
       }
     );
 

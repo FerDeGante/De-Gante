@@ -1,13 +1,19 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-title {
+  font-family: 'Poppins', sans-serif;
+}
 
 /* === HERO SECTION === */
-
 .hero {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 4rem 2rem;
-  background-color: #0A3A42;
-  color: white;
+  background-color: #ffffff;
+  color: #02113a;
   flex-wrap: wrap;
 }
 
@@ -33,7 +39,7 @@
 .hero-slogan {
     font-size: 0.9rem;
   font-weight: 500;
-  color: #66F0D1;
+  color: #4cbbdb;
   margin-top: 0.25rem;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -43,11 +49,11 @@
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.5px;
-  color: white;
+  color: #222222;
 }
 
 .hero-name span {
-  color: #66F0D1;
+  color: #4cbbdb;
 }
 
 .hero-title {
@@ -57,12 +63,12 @@
 }
 
 .text-accent {
-  color: #66F0D1;
+  color: #4cbbdb;
 }
 
 .hero-description {
   font-size: 1.1rem;
-  color: #D4D4D4;
+  color: #222222;
 }
 
 .hero-cta {
@@ -238,10 +244,9 @@
 }
 
 .participation-img {
-  width: 100%;
-  height: auto;
-  border-radius: 0.75rem;
+    max-height: 220px;
   object-fit: cover;
+  width: 100%;
 }
 
 .participation-title {
@@ -576,8 +581,9 @@
   }
 
   .hero-photo {
-    width: 100%;
-    max-width: 300px;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
   }
 
   .participations-grid,
@@ -613,32 +619,21 @@
 /* === SMALL MOBILE (≤ 480px) === */
 @media (max-width: 480px) {
   .hero-title {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
   }
-
   .hero-description {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+  }
+  .hero-photo {
+    max-width: 300px;
+
   }
 
-  .hero-logo-block {
-    flex-direction: column;
-    align-items: center;
+  .participation-card {
+    padding: 1rem 0.5rem;
   }
 
-  .hero-name,
-  .hero-slogan {
-    font-size: 1rem;
-    text-align: center;
-  }
-
-  .whatsapp-float {
-    bottom: 1rem;
-    right: 1rem;
-    padding: 0.6rem;
-  }
-
-  .whatsapp-icon {
-    width: 20px;
-    height: 20px;
+  .projects-grid, .services-grid, .participations-grid {
+    grid-template-columns: 1fr !important;
   }
 }
