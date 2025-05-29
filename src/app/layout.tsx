@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     },
   },
   icons: [
-    { rel: "icon", url: "/isotipo_dg.png", type: "image/png" },
-    { rel: "shortcut icon", url: "/isotipo_dg.png", type: "image/png" },
+    { rel: "icon", url: "/images/monograma_dg.jpeg", type: "image/png" },
+    { rel: "shortcut icon", url: "/images/monograma_dg.jpeg/imagotipo_dg.png", type: "image/png" },
   ],
 };
 
