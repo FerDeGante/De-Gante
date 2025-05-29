@@ -17,16 +17,15 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Fernando De Gante | Portafolio",
-    description:
-      "Consultor en tecnología, GovTech y transformación digital.",
+    description: "Consultor en tecnología, GovTech y transformación digital.",
     url: "https://de-gante.com",
     siteName: "Fernando De Gante",
     images: [
       {
-        url: "/images/fer_hero.jpeg",
+        url: "https://de-gante.com/images/imagotipo_slogan_sin_fondo.jpeg",
         width: 1200,
         height: 630,
-        alt: "Fernando De Gante",
+        alt: "Fernando De Gante | Logo",
       },
     ],
     locale: "es_MX",
@@ -40,10 +39,10 @@ export const metadata: Metadata = {
       follow: true,
     },
   },
-  icons: [
-    { rel: "icon", url: "/images/monograma_dg.jpeg", type: "image/png" },
-    { rel: "shortcut icon", url: "/images/monograma_dg.jpeg/imagotipo_dg.png", type: "image/png" },
-  ],
+  icons: {
+    icon: "/images/monograma_dg.jpeg",
+    shortcut: "/images/imagotipo_dg.png",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -51,9 +50,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/isotipo_dg.png" />
+        <meta property="og:image" content="https://de-gante.com/images/imagotipo_slogan_sin_fondo.jpeg" />
+        <link rel="icon" href="/images/monograma_dg.jpeg" type="image/jpeg" />
+        <link rel="shortcut icon" href="/images/imagotipo_dg.png" type="image/png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap"
           rel="stylesheet"
