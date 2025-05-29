@@ -3,7 +3,7 @@ import { useState } from "react";
 import { FloatingLabel, Form, Button, Alert } from "react-bootstrap";
 
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", surname: "", email: "" });
   const [success, setSuccess] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -22,13 +22,17 @@ export default function ContactForm() {
       const res = await fetch("/api/subscribe", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: form.email }),
+        body: JSON.stringify({
+          name: form.name,
+          surname: form.surname,
+          email: form.email,
+        }),
       });
 
       const data = await res.json();
       if (res.ok) {
         setSuccess("¡Gracias por suscribirte! Me pondré en contacto pronto.");
-        setForm({ name: "", email: "", message: "" });
+        setForm({ name: "", surname: "", email: "" });
       } else {
         setError(data.error || "Ocurrió un error al enviar el mensaje.");
       }
@@ -54,16 +58,16 @@ export default function ContactForm() {
             required
           />
 </FloatingLabel>
-<FloatingLabel controlId="message" label="Apellidos" className="mb-3">  
-  <Form.Control
-    type="text"
-    placeholder="Apellidos"
-    name="message"
-    value={form.message}
-    onChange={handleChange}
-    required
-  />
-</FloatingLabel>
+        <FloatingLabel controlId="surname" label="Apellidos" className="mb-3">
+          <Form.Control
+            type="text"
+            placeholder="Apellidos"
+            name="surname"
+            value={form.surname}
+            onChange={handleChange}
+            required
+          />
+        </FloatingLabel>
 
         <FloatingLabel controlId="email" label="Tu correo" className="mb-3">
           <Form.Control

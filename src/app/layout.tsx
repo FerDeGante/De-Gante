@@ -13,8 +13,8 @@ export const metadata: Metadata = {
   title: "Fernando De Gante | Portafolio",
   description: "Consultor en tecnología, GovTech y transformación digital.",
   icons: {
-    icon: "/logo_dg.png",
-    },
+    icon: "/images/logo_dg.PNG",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

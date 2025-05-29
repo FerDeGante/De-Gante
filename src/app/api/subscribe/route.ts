@@ -7,10 +7,13 @@ mailchimp.setConfig({
 });
 
 export async function POST(req: NextRequest) {
-  const { email } = await req.json();
+  const { name, surname, email } = await req.json();
 
   if (!email) {
-    return NextResponse.json({ error: 'Correo electrónico requerido' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'Correo electrónico requerido' },
+      { status: 400 }
+    );
   }
 
   try {
@@ -19,15 +22,19 @@ export async function POST(req: NextRequest) {
       {
         email_address: email,
         status: 'subscribed',
+        merge_fields: {
+          FNAME: name,
+          LNAME: surname,
+        },
       }
     );
 
     return NextResponse.json({ message: 'Suscripción exitosa', response });
   } catch (error: unknown) {
-  if (error instanceof Error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
+    if (error instanceof Error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
-  return NextResponse.json({ error: "Error inesperado" }, { status: 500 });
-}
+    return NextResponse.json({ error: 'Error inesperado' }, { status: 500 });
+  }
 }
