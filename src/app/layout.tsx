@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     siteName: "Fernando De Gante",
     images: [
       {
-        url: "https://de-gante.com/images/imagotipo_slogan_sin_fondo.jpeg",
+        url: "https://de-gante.com/images/dg_preview_site.jpeg", // ✅ la correcta
         width: 1200,
         height: 630,
         alt: "Fernando De Gante | Logo",
@@ -50,9 +50,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:image" content="https://de-gante.com/images/imagotipo_slogan_sin_fondo.jpeg" />
+
+        {/* ✅ Usa la misma imagen del Open Graph aquí también */}
+        <meta property="og:image" content="https://de-gante.com/images/dg_preview_site.jpeg" />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        
+        {/* Iconos del sitio */}
         <link rel="icon" href="/images/monograma_dg.jpeg" type="image/jpeg" />
         <link rel="shortcut icon" href="/images/imagotipo_dg.png" type="image/png" />
+
+        {/* Fuentes */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

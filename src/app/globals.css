@@ -117,10 +117,12 @@ font-size: clamp(1.5rem, 4vw, 2.5rem);
   background-color: #ecfdf5; /* tono verde menta suave */
   flex-wrap: wrap;
   gap: 2rem;
+    overflow-x: hidden; /* ✅ evita scroll horizontal */
+
 }
 
 .strategic-left {
-  flex: 1;
+  flex: 1 1 300px;
   max-width: 600px;
   display: flex;
   flex-direction: column;
@@ -165,17 +167,21 @@ font-size: clamp(1.5rem, 4vw, 2.5rem);
   background-color: #059669;
 }
 
+
 .strategic-right {
-  flex: 1;
+  flex: 1 1 300px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .strategic-mockup {
-  max-width: 900px;
   width: 100%;
+  max-width: 600px;
   height: auto;
   border-radius: 1rem;
+  object-fit: contain;
 }
 
 .projects-section {
@@ -558,6 +564,21 @@ font-size: clamp(1.5rem, 4vw, 2.5rem);
     margin-top: 2rem;
   }
 
+  .strategic {
+    flex-direction: column;
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .strategic-left {
+    align-items: center;
+  }
+
+  .strategic-mockup {
+    max-width: 100%;
+  }
+}
+
   .services-grid,
   .participations-grid,
   .opensource-grid {
@@ -568,7 +589,7 @@ font-size: clamp(1.5rem, 4vw, 2.5rem);
   .contact-form form {
     max-width: 90%;
   }
-}
+
 
 /* === MOBILE (≤ 768px) === */
 @media (max-width: 768px) {
@@ -594,7 +615,23 @@ font-size: clamp(1.5rem, 4vw, 2.5rem);
   max-width: 360px;
   height: auto;
   }
+.strategic {
+    padding: 2rem 1rem;
+  }
 
+  .strategic-title {
+    font-size: 2rem;
+  }
+
+  .strategic-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .strategic-mockup {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+  }
   .participations-grid,
   .services-grid,
   .opensource-grid {
