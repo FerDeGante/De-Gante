@@ -538,6 +538,20 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
     padding: 2rem 1.5rem;
   }
 
+  .strategic {
+    flex-direction: column;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+
+  .strategic-left {
+    align-items: center;
+  }
+
+  .strategic-mockup {
+    max-width: 80%;
+  }
+
   .hero-left {
     align-items: center;
   }
@@ -573,6 +587,18 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
   .hero {
     padding: 2rem 1rem;
     flex-direction: column;
+  }
+
+  .strategic {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .strategic-title {
+    font-size: 1.8rem;
+  }
+
+  .strategic-mockup {
+    max-width: 90%;
   }
 
   .hero-left {
@@ -634,6 +660,18 @@ h1, h2, h3, h4, h5, h6, .hero-title, .projects-title, .services-title, .contact-
   .hero-photo {
     max-width: 300px;
 
+  }
+
+  .strategic-title {
+    font-size: 1.6rem;
+  }
+
+  .strategic-subtitle {
+    font-size: 1rem;
+  }
+
+  .strategic-mockup {
+    max-width: 100%;
   }
 
   .participation-card {
