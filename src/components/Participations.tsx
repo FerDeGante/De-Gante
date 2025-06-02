@@ -60,6 +60,7 @@ const participations = [
 export default function Participations() {
   return (
     <section className="participations-section">
+      <div className="container">
       <h2 className="participations-title">Mis participaciones más destacadas</h2>
       <div className="participations-grid">
         {participations.map((item, i) => (
@@ -85,7 +86,10 @@ export default function Participations() {
             <h3 className="participation-title">{item.title}</h3>
             <p className="participation-description">{item.description}</p>
           </div>
+
+
         ))}
+      </div>
       </div>
     </section>
   );

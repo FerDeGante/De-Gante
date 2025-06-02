@@ -23,6 +23,7 @@ const services = [
 export default function Services() {
   return (
     <section className="services-section">
+        <div className="container">
       <h2 className="services-title">¿Qué puedo crear?</h2>
       <div className="services-grid">
         {services.map((item, i) => (
@@ -37,6 +38,7 @@ export default function Services() {
             <h3 className="service-label">{item.title}</h3>
           </div>
         ))}
+      </div>
       </div>
     </section>
   );

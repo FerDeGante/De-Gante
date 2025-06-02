@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function Strategic() {
   return (
-    <section className="strategic">
+    <section className="strategic-section">
       <div className="strategic-left">
         <h2 className="strategic-label">IMPLEMENTACIÓN ESTRATÉGICA DE</h2>
         <h3 className="strategic-title">VISOR URBANO CUERNAVACA</h3>
