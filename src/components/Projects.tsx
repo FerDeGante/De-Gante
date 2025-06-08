@@ -16,7 +16,7 @@ const projects = [
   },
   {
     title: "One Asesor",
-    url: "https://one-asesor.netlify.app/",
+    url: "https://one-asesor.com/",
     image: "/images/one_logo.png",
     glow: "glow-purple",
   },
