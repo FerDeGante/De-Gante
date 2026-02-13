@@ -27,10 +27,34 @@ const projects = [
     glow: "glow-pink",
   },
   {
-    title: "Pawfect (en desarrollo)",
-    url: "#",
+    title: "Pawfect - Prueba Beta test",
+    url: "https://www.pawfect.com.mx/",
     image: "/images/pawfect_logo.png",
     glow: "glow-blue",
+  },
+  {
+    title: "Auto express MM",
+    url: "https://www.autoexpressmm.com/",
+    image: "/images/logo_final_auto_express_fondo_blanco_.png",
+    glow: "glow-yellow",
+  },
+  {
+    title: "Mundo Chic",
+    url: "https://www.mundochic.mx/",
+    image: "/images/logo-mundo-chic.png",
+    glow: "glow-pink",
+  },
+  {
+    title: "Supernovedades",
+    url: "https://supernovedadesmexico.com.mx/",
+    image: "/images/logo_snmx_fondo_blanco_1.jpeg",
+    glow: "glow-cyan",
+  },
+  {
+    title: "JoyaStudio",
+    url: "https://joyastudio.com.mx",
+    image: "/images/logo-joya-studio.png",
+    glow: "glow-purple",
   },
 ];
 
