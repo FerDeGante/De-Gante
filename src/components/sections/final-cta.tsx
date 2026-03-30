@@ -5,7 +5,6 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { site } from "@/content/site";
-import { api } from "@/lib/api-client";
 
 const HEADLINE_GRADIENT =
   "linear-gradient(92deg, #e6fbff 0%, #02abf3 26%, #10a2c7 52%, #097693 76%, #dff9ff 100%)";
@@ -14,6 +13,28 @@ type FormState = "idle" | "loading" | "success" | "error";
 
 const fieldClass =
   "h-12 w-full rounded-[1rem] border border-[color:var(--line)] bg-white/80 px-4 text-sm text-[color:var(--text)] outline-none transition placeholder:text-[color:var(--muted)] focus:border-[color:var(--accent)] focus:ring-2 focus:ring-[color:var(--accent)]/15";
+
+function buildWhatsAppLink(formData: {
+  company: string;
+  email: string;
+  fullName: string;
+  message: string;
+  phone: string;
+}) {
+  const lines = [
+    "Hola Fernando, te comparto mi caso:",
+    "",
+    `Nombre: ${formData.fullName}`,
+    `Correo: ${formData.email}`,
+    `Teléfono: ${formData.phone || "No proporcionado"}`,
+    `Empresa: ${formData.company || "No proporcionada"}`,
+    "",
+    "Mensaje:",
+    formData.message,
+  ];
+
+  return `${site.contact.whatsappHref}?text=${encodeURIComponent(lines.join("\n"))}`;
+}
 
 export function FinalCta() {
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -97,23 +118,25 @@ export function FinalCta() {
     setFormState("loading");
 
     try {
-      const result = await api.contact.submit({
+      const whatsappLink = buildWhatsAppLink({
         fullName: formData.fullName.trim(),
         email: formData.email.trim(),
-        phone: formData.phone.trim() || undefined,
-        company: formData.company.trim() || undefined,
+        phone: formData.phone.trim(),
+        company: formData.company.trim(),
         message: formData.message.trim(),
-        source: "final_cta",
       });
 
-      if (result.ok) {
-        setFormState("success");
-      } else {
-        setErrorMessage(result.error ?? "Ocurrió un error. Intenta de nuevo.");
-        setFormState("error");
+      setFormState("success");
+
+      if (typeof window !== "undefined") {
+        const popup = window.open(whatsappLink, "_blank", "noopener,noreferrer");
+
+        if (!popup) {
+          window.location.href = whatsappLink;
+        }
       }
     } catch {
-      setErrorMessage("Error de conexión. Verifica tu red e intenta de nuevo.");
+      setErrorMessage("No se pudo abrir WhatsApp. Intenta de nuevo.");
       setFormState("error");
     }
   }
@@ -176,11 +199,11 @@ export function FinalCta() {
                       </svg>
                     </div>
                     <h3 className="font-display mt-5 text-xl font-semibold tracking-[-0.03em] text-[color:var(--text)]">
-                      Mensaje recibido
+                      WhatsApp listo
                     </h3>
                     <p className="mt-3 max-w-xs text-sm leading-6 text-[color:var(--muted)]">
-                      Te respondo personalmente en menos de 24 horas. Si es urgente, escríbeme
-                      directo por WhatsApp.
+                      Se abrió WhatsApp con tu mensaje prellenado. Solo envíalo y te responderé
+                      directamente ahí.
                     </p>
                   </div>
                 ) : (
@@ -255,7 +278,7 @@ export function FinalCta() {
 
                     <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
                       <Button type="submit" variant="secondary" disabled={formState === "loading"}>
-                        {formState === "loading" ? "Enviando..." : "Enviar por WhatsApp"}
+                        {formState === "loading" ? "Abriendo..." : "Mandar a WhatsApp"}
                       </Button>
                     </div>
 

@@ -6,7 +6,6 @@ export const site = {
   siteUrl: "https://de-gante.com",
   contact: {
     whatsappDisplay: "+52 777 493 7660",
-    whatsappE164: "527774937660",
     whatsappHref: "https://wa.me/527774937660",
   },
   brandMark: {
