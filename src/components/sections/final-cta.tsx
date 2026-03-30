@@ -255,7 +255,7 @@ export function FinalCta() {
 
                     <div className="flex flex-col gap-3 pt-1 sm:flex-row sm:items-center">
                       <Button type="submit" variant="secondary" disabled={formState === "loading"}>
-                        {formState === "loading" ? "Enviando..." : "Enviar mensaje"}
+                        {formState === "loading" ? "Enviando..." : "Enviar por WhatsApp"}
                       </Button>
                     </div>
 

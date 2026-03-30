@@ -7,7 +7,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-[color:var(--line)]/80 bg-[color:var(--background)]/96">
       <Container className="flex h-20 items-center justify-between gap-6">
-        <a href="#tesis" className="flex items-center gap-3">
+        <a href="#inicio" className="flex items-center gap-3">
           <span className="inline-flex size-11 items-center justify-center overflow-hidden rounded-2xl border border-[color:var(--line)] bg-white shadow-[0_8px_20px_rgba(15,23,42,0.06)]">
             <Image
               src={site.brandMark.src}

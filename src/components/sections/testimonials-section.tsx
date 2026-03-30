@@ -294,9 +294,9 @@ function StickyPanel({ titleFillStyle }: { titleFillStyle: CSSProperties }) {
         </p>
 
         <a
-          href="https://wa.me/527774937660"
-          target="_blank"
-          rel="noreferrer noopener"
+        href={site.contact.whatsappHref}
+        target="_blank"
+        rel="noreferrer noopener"
           className="mt-5 flex items-center gap-3 rounded-[1.2rem] border border-[color:var(--line)]/60 bg-white/80 px-4 py-3.5 transition hover:border-[color:var(--accent)]/40"
         >
           <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-[color:var(--accent)]/10">
@@ -306,7 +306,9 @@ function StickyPanel({ titleFillStyle }: { titleFillStyle: CSSProperties }) {
           </span>
           <div>
             <p className="text-[10px] font-medium uppercase tracking-[0.28em] text-[color:var(--muted)]">WhatsApp directo</p>
-            <p className="mt-0.5 text-sm font-medium text-[color:var(--text)]">+52 777 493 7660</p>
+            <p className="mt-0.5 text-sm font-medium text-[color:var(--text)]">
+              {site.contact.whatsappDisplay}
+            </p>
           </div>
         </a>
 
@@ -380,7 +382,7 @@ export function TestimonialsSection() {
   return (
     // overflow-hidden MUST NOT be here — it breaks position:sticky on the left panel
     <section
-      id="casos"
+      id="testimonios"
       ref={sectionRef}
       className="relative isolate scroll-mt-28 py-24 sm:py-28 lg:py-32"
     >
@@ -433,12 +435,12 @@ export function TestimonialsSection() {
                 Agendar consultoría
               </Button>
               <a
-                href="https://wa.me/527774937660"
+                href={site.contact.whatsappHref}
                 target="_blank"
                 rel="noreferrer noopener"
                 className="text-sm text-[color:var(--muted)] transition hover:text-[color:var(--text)]"
               >
-                +52 777 493 7660
+                {site.contact.whatsappDisplay}
               </a>
             </div>
           </div>

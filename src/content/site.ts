@@ -4,18 +4,22 @@ export const site = {
   description:
     "Infraestructura digital, automatización comercial y sistemas de escalamiento para negocios que ya venden y necesitan operar mejor.",
   siteUrl: "https://de-gante.com",
+  contact: {
+    whatsappDisplay: "+52 777 493 7660",
+    whatsappE164: "527774937660",
+    whatsappHref: "https://wa.me/527774937660",
+  },
   brandMark: {
     src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774645219/monograma_dg_jmk34k.jpg",
     alt: "Monograma DG de Fernando De Gante",
   },
   navigation: [
-    { label: "Tesis", href: "#tesis" },
-    { label: "Sistema", href: "#sistema" },
-    { label: "Casos", href: "#casos" },
+    { label: "Mis proyectos", href: "#mis-proyectos" },
+    { label: "Testimonios", href: "#testimonios" },
   ],
   actions: {
     header: {
-      label: "Agendar consultoría",
+      label: "Escala tu negocio",
       href: "https://calendly.com/ferdegante-22/30min",
     },
     primary: {

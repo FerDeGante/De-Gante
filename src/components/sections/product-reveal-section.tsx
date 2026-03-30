@@ -2,6 +2,7 @@
 
 import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { cn } from "@/lib/utils";
 import type {
@@ -615,6 +616,14 @@ export function ProductRevealSection({
             <p className="mt-4 max-w-xl text-sm leading-7 text-[color:var(--muted)] sm:text-base">
               {content.exploreHint}
             </p>
+
+            {content.visitHref && content.visitLabel ? (
+              <div className="mt-8">
+                <Button href={content.visitHref} variant="primary" target="_blank">
+                  {content.visitLabel}
+                </Button>
+              </div>
+            ) : null}
           </div>
 
           <div className="min-w-0">

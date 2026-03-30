@@ -36,6 +36,8 @@ export type ProductRevealSectionContent = {
   id: string;
   intro: string;
   exploreHint: string;
+  visitHref?: string;
+  visitLabel?: string;
   theme: ProductRevealTheme;
 };
 
@@ -121,7 +123,7 @@ export const relativumCommerceEngine = {
     "Una tienda común muestra productos y recibe pedidos. Este motor ayuda a que la venta siga el hilo completo sin dejar oportunidades en el camino.",
   eyebrow: "COMMERCE ENGINE",
   headlineLines: ["No es solo vender en línea.", "Es vender con más claridad."],
-  id: "sistema",
+  id: "mis-proyectos",
   intro:
     "Relativum Commerce Engine convierte una tienda en una forma más útil de atraer, convertir, dar seguimiento y operar con menos fricción.",
   exploreHint: "Desliza para explorar cómo se siente vender con más claridad.",
@@ -218,6 +220,8 @@ export const joyaStudioReveal = {
   intro:
     "Una experiencia digital pensada para que cada pieza se perciba con más deseo, más valor y más intención de compra.",
   exploreHint: "Desliza para ver cómo una joya se presenta con más presencia.",
+  visitHref: "https://www.joyastudio.com.mx/",
+  visitLabel: "Visitar JoyaStudio",
   theme: {
     accent: "#aa7a48",
     accentSoft: "rgba(170, 122, 72, 0.14)",
@@ -311,6 +315,8 @@ export const pawfectReveal = {
   intro:
     "Una forma más clara de gestionar citas, atención y operación sin depender del caos diario.",
   exploreHint: "Desliza para ver cómo la clínica trabaja con más orden.",
+  visitHref: "https://www.pawfect.com.mx/",
+  visitLabel: "Visitar Pawfect",
   theme: {
     accent: "#5c9c95",
     accentSoft: "rgba(92, 156, 149, 0.14)",

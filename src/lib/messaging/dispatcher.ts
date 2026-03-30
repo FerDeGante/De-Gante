@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/db";
+import { site } from "@/content/site";
 import { getMessagingAdapter } from "./client";
 import type { DeliveryStatus } from "../../../generated/prisma/client";
 
@@ -13,13 +14,32 @@ type PostAppointmentInput = {
   leadName: string;
 };
 
-async function sendAndLog(phone: string, body: string, templateKey: string) {
+type ContactAlertInput = {
+  company?: string;
+  email: string;
+  leadName: string;
+  message: string;
+  phone?: string;
+  source?: string;
+};
+
+async function sendAndLog(
+  phone: string,
+  body: string,
+  templateKey: string,
+  leadEmail?: string,
+  leadPhone?: string,
+) {
   const adapter = getMessagingAdapter();
   const result = await adapter.send({ to: phone, body, templateKey });
 
-  const lead = await prisma.lead.findFirst({
-    where: { phone: { contains: phone.replace(/[^0-9]/g, "").slice(-10) } },
-  });
+  const lead =
+    (leadEmail ? await prisma.lead.findUnique({ where: { email: leadEmail } }) : null) ??
+    (leadPhone
+      ? await prisma.lead.findFirst({
+          where: { phone: { contains: leadPhone.replace(/[^0-9]/g, "").slice(-10) } },
+        })
+      : null);
 
   if (lead) {
     await prisma.messageLog.create({
@@ -36,6 +56,23 @@ async function sendAndLog(phone: string, body: string, templateKey: string) {
   }
 
   return result;
+}
+
+function buildContactAlertBody(input: ContactAlertInput) {
+  const lines = [
+    "Nuevo contacto desde el formulario de de-gante.com",
+    "",
+    `Nombre: ${input.leadName}`,
+    `Correo: ${input.email}`,
+    `Teléfono: ${input.phone || "No proporcionado"}`,
+    `Empresa: ${input.company || "No proporcionada"}`,
+    `Fuente: ${input.source || "contact_form"}`,
+    "",
+    "Mensaje:",
+    input.message,
+  ];
+
+  return lines.join("\n");
 }
 
 export async function sendPostDiagnosticMessage(input: PostDiagnosticInput) {
@@ -63,6 +100,18 @@ export async function sendPostAppointmentMessage(input: PostAppointmentInput) {
   ].join("\n");
 
   return sendAndLog(input.phone, body, "post_appointment");
+}
+
+export async function sendContactWhatsAppAlert(input: ContactAlertInput) {
+  const body = buildContactAlertBody(input);
+
+  return sendAndLog(
+    site.contact.whatsappE164,
+    body,
+    "contact_alert",
+    input.email,
+    input.phone,
+  );
 }
 
 export async function handleInboundWebhook(payload: unknown) {

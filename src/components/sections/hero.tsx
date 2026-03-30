@@ -59,7 +59,7 @@ export function HeroSection() {
 
   return (
     <section
-      id="tesis"
+      id="inicio"
       className="relative isolate scroll-mt-28 overflow-hidden pb-8 pt-8 sm:pb-10 sm:pt-10 lg:pb-12 lg:pt-12"
     >
       <div className="absolute inset-0 -z-10">
