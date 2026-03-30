@@ -33,14 +33,19 @@ export async function POST(request: Request) {
     });
 
     void notifyNewLead({ leadName: fullName, email, source: "contact_form", resultKey: undefined }).catch(() => {});
-    void sendContactWhatsAppAlert({
-      leadName: fullName,
-      email,
-      phone,
-      company,
-      message,
-      source: source ?? "contact_form",
-    }).catch(() => {});
+
+    try {
+      await sendContactWhatsAppAlert({
+        leadName: fullName,
+        email,
+        phone,
+        company,
+        message,
+        source: source ?? "contact_form",
+      });
+    } catch (error) {
+      console.error("[contact/submit] whatsapp alert failed", error);
+    }
 
     return NextResponse.json({
       ok: true,
