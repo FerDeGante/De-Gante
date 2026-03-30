@@ -1024,7 +1024,7 @@ export function ProductRevealSection({
       style={sectionStyle}
     >
       <div
-        className="sticky top-0 flex h-screen flex-col overflow-hidden"
+        className="sticky top-0 flex flex-col overflow-hidden"
         style={{
           backgroundImage: `linear-gradient(180deg,rgba(252,251,248,0.92) 0%,rgba(255,255,255,1) 42%,rgba(246,243,236,0.86) 100%), ${makeSectionBackground(content.theme)}`,
         }}
@@ -1032,7 +1032,7 @@ export function ProductRevealSection({
         {/* Horizontally translating track */}
         <div
           ref={mobileTrackRef}
-          className="flex flex-1 flex-row items-start gap-4 pl-5 pt-8 pb-2"
+          className="flex flex-row items-start gap-4 pl-5 pt-8 pb-2"
           style={{ willChange: "transform" }}
         >
           {content.cards.map((card, index) => (

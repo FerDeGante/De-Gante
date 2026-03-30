@@ -522,11 +522,11 @@ export function TestimonialsSection() {
       ref={mobileWrapperRef}
       className="relative lg:hidden"
     >
-      <div className="sticky top-0 flex h-screen flex-col overflow-hidden bg-[radial-gradient(circle_at_18%_14%,rgba(16,162,199,0.08),transparent_28%),radial-gradient(circle_at_84%_22%,rgba(9,118,147,0.06),transparent_24%),radial-gradient(circle_at_50%_88%,rgba(19,59,75,0.04),transparent_28%)]">
+      <div className="sticky top-0 flex flex-col overflow-hidden bg-[radial-gradient(circle_at_18%_14%,rgba(16,162,199,0.08),transparent_28%),radial-gradient(circle_at_84%_22%,rgba(9,118,147,0.06),transparent_24%),radial-gradient(circle_at_50%_88%,rgba(19,59,75,0.04),transparent_28%)]">
         {/* Horizontally translating track */}
         <div
           ref={mobileTrackRef}
-          className="flex flex-1 flex-row items-start gap-4 pl-5 pt-8 pb-2"
+          className="flex flex-row items-start gap-4 pl-5 pt-8 pb-2"
           style={{ willChange: "transform" }}
         >
           {testimonials.map((t) => (
