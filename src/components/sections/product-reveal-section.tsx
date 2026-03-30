@@ -686,8 +686,11 @@ export function ProductRevealSection({
   const trackRef = useRef<HTMLDivElement | null>(null);
   const cardRefs = useRef<Array<HTMLDivElement | null>>([]);
   const activeIndexRef = useRef(0);
+  const mobileWrapperRef = useRef<HTMLDivElement | null>(null);
+  const mobileTrackRef = useRef<HTMLDivElement | null>(null);
   const [titleActivated, setTitleActivated] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mobileDotIndex, setMobileDotIndex] = useState(0);
 
   useEffect(() => {
     activeIndexRef.current = activeIndex;
@@ -780,6 +783,54 @@ export function ProductRevealSection({
     };
   }, []);
 
+  // Mobile: set wrapper height so the sticky child has scroll room
+  useEffect(() => {
+    const wrapper = mobileWrapperRef.current;
+    if (!wrapper) return;
+    const setHeight = () => {
+      if (window.innerWidth >= 1024) {
+        wrapper.style.height = "";
+        return;
+      }
+      wrapper.style.height = `${window.innerHeight + (content.cards.length - 1) * window.innerHeight * 0.75}px`;
+    };
+    setHeight();
+    window.addEventListener("resize", setHeight);
+    return () => window.removeEventListener("resize", setHeight);
+  }, [content.cards.length]);
+
+  // Mobile: translate cards track based on vertical scroll progress
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    let frame = 0;
+    const update = () => {
+      if (window.innerWidth >= 1024) return;
+      const wrapper = mobileWrapperRef.current;
+      const track = mobileTrackRef.current;
+      if (!wrapper || !track) return;
+      const wrapperTop = wrapper.getBoundingClientRect().top + window.scrollY;
+      const scrollable = wrapper.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      const scrolled = Math.max(0, window.scrollY - wrapperTop);
+      const progress = Math.min(1, scrolled / scrollable);
+      const maxTranslate = track.scrollWidth - window.innerWidth;
+      track.style.transform = `translateX(-${progress * Math.max(0, maxTranslate)}px)`;
+      setMobileDotIndex(Math.round(progress * (content.cards.length - 1)));
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [content.cards.length]);
+
   const sectionStyle = useMemo<RevealCSSVars>(
     () =>
       ({
@@ -825,6 +876,7 @@ export function ProductRevealSection({
   const nextDisabled = activeIndex >= content.cards.length - 1;
 
   return (
+    <>
     <section
       id={content.id}
       ref={sectionRef}
@@ -881,7 +933,7 @@ export function ProductRevealSection({
             ) : null}
           </div>
 
-          <div className="min-w-0 lg:pt-10">
+          <div className="hidden lg:block lg:pt-10">
             <div className="mb-6 hidden items-center justify-end gap-2 lg:flex">
               <CarouselButton
                 label="Ir a la tarjeta anterior"
@@ -964,5 +1016,54 @@ export function ProductRevealSection({
         </div>
       </Container>
     </section>
+
+    {/* Mobile: scroll-driven horizontal sticky cards */}
+    <div
+      ref={mobileWrapperRef}
+      className="relative lg:hidden"
+      style={sectionStyle}
+    >
+      <div
+        className="sticky top-0 flex h-screen flex-col overflow-hidden"
+        style={{
+          backgroundImage: `linear-gradient(180deg,rgba(252,251,248,0.92) 0%,rgba(255,255,255,1) 42%,rgba(246,243,236,0.86) 100%), ${makeSectionBackground(content.theme)}`,
+        }}
+      >
+        {/* Horizontally translating track */}
+        <div
+          ref={mobileTrackRef}
+          className="flex flex-1 flex-row items-start gap-4 pl-5 pt-8 pb-2"
+          style={{ willChange: "transform" }}
+        >
+          {content.cards.map((card, index) => (
+            <div key={card.title} className="min-w-[88vw] w-[88vw] shrink-0 overflow-y-auto">
+              <RevealCardItem
+                card={card}
+                index={index}
+                isActive={index === mobileDotIndex}
+                setCardRef={() => {}}
+                theme={content.theme}
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Progress dots */}
+        <div className="flex shrink-0 items-center justify-center gap-2.5 py-5">
+          {content.cards.map((card, i) => (
+            <div
+              key={card.title}
+              className={cn(
+                "rounded-full transition-all duration-300 ease-out",
+                i === mobileDotIndex
+                  ? "h-2.5 w-9 bg-[linear-gradient(90deg,var(--reveal-accent),var(--reveal-accent-strong))]"
+                  : "h-2.5 w-2.5 bg-[color:var(--line)]",
+              )}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+    </>
   );
 }

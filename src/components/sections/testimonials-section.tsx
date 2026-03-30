@@ -348,7 +348,10 @@ function StickyPanel({ titleFillStyle }: { titleFillStyle: CSSProperties }) {
 
 export function TestimonialsSection() {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const mobileWrapperRef = useRef<HTMLDivElement | null>(null);
+  const mobileTrackRef = useRef<HTMLDivElement | null>(null);
   const [titleActivated, setTitleActivated] = useState(false);
+  const [mobileDotIndex, setMobileDotIndex] = useState(0);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -377,6 +380,54 @@ export function TestimonialsSection() {
     };
   }, []);
 
+  // Mobile: set wrapper height so the sticky child has scroll room
+  useEffect(() => {
+    const wrapper = mobileWrapperRef.current;
+    if (!wrapper) return;
+    const setHeight = () => {
+      if (window.innerWidth >= 1024) {
+        wrapper.style.height = "";
+        return;
+      }
+      wrapper.style.height = `${window.innerHeight + (testimonials.length - 1) * window.innerHeight * 0.7}px`;
+    };
+    setHeight();
+    window.addEventListener("resize", setHeight);
+    return () => window.removeEventListener("resize", setHeight);
+  }, []);
+
+  // Mobile: translate testimonial track based on vertical scroll progress
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    let frame = 0;
+    const update = () => {
+      if (window.innerWidth >= 1024) return;
+      const wrapper = mobileWrapperRef.current;
+      const track = mobileTrackRef.current;
+      if (!wrapper || !track) return;
+      const wrapperTop = wrapper.getBoundingClientRect().top + window.scrollY;
+      const scrollable = wrapper.offsetHeight - window.innerHeight;
+      if (scrollable <= 0) return;
+      const scrolled = Math.max(0, window.scrollY - wrapperTop);
+      const progress = Math.min(1, scrolled / scrollable);
+      const maxTranslate = track.scrollWidth - window.innerWidth;
+      track.style.transform = `translateX(-${progress * Math.max(0, maxTranslate)}px)`;
+      setMobileDotIndex(Math.round(progress * (testimonials.length - 1)));
+    };
+    const onScroll = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
   const titleFillStyle = useMemo<CSSProperties>(
     () => ({
       backgroundImage: `${HEADLINE_GRADIENT}, linear-gradient(90deg, #17212b, #17212b)`,
@@ -395,7 +446,8 @@ export function TestimonialsSection() {
   );
 
   return (
-    // overflow-hidden MUST NOT be here — it breaks position:sticky on the left panel
+    <>
+    {/* overflow-hidden MUST NOT be on the section — it breaks position:sticky on the left panel */}
     <section
       id="testimonios"
       ref={sectionRef}
@@ -428,18 +480,18 @@ export function TestimonialsSection() {
             <StickyPanel titleFillStyle={titleFillStyle} />
           </div>
 
-          {/* Right — full-width snap carousel on mobile, vertical stack on desktop */}
-          <div className="flex overflow-x-auto snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden lg:block lg:space-y-5 lg:overflow-x-visible">
+          {/* Right — vertical stack on desktop only (mobile handled by sticky wrapper below) */}
+          <div className="hidden lg:block lg:space-y-5">
             {testimonials.map((t) => (
-              <div key={`${t.name}-${t.company}`} className="w-full shrink-0 snap-start lg:w-auto lg:shrink">
+              <div key={`${t.name}-${t.company}`}>
                 <TestimonialCard testimonial={t} />
               </div>
             ))}
           </div>
         </div>
 
-        {/* Mobile CTA (below cards) */}
-        <div className="mt-8 lg:hidden">
+        {/* Mobile CTA — moved outside section, after sticky cards wrapper */}
+        <div className="hidden">
           <div className="rounded-[2rem] border border-[color:var(--line)]/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.99)_0%,rgba(251,248,242,0.96)_100%)] p-6 shadow-[0_20px_56px_rgba(15,23,42,0.06)]">
             <h3 className="font-display text-xl font-semibold tracking-[-0.04em] text-[color:var(--text)]">
               Hablemos directo
@@ -464,5 +516,69 @@ export function TestimonialsSection() {
         </div>
       </Container>
     </section>
+
+    {/* Mobile: scroll-driven horizontal sticky testimonials */}
+    <div
+      ref={mobileWrapperRef}
+      className="relative lg:hidden"
+    >
+      <div className="sticky top-0 flex h-screen flex-col overflow-hidden bg-[radial-gradient(circle_at_18%_14%,rgba(16,162,199,0.08),transparent_28%),radial-gradient(circle_at_84%_22%,rgba(9,118,147,0.06),transparent_24%),radial-gradient(circle_at_50%_88%,rgba(19,59,75,0.04),transparent_28%)]">
+        {/* Horizontally translating track */}
+        <div
+          ref={mobileTrackRef}
+          className="flex flex-1 flex-row items-start gap-4 pl-5 pt-8 pb-2"
+          style={{ willChange: "transform" }}
+        >
+          {testimonials.map((t) => (
+            <div key={`${t.name}-${t.company}`} className="min-w-[88vw] w-[88vw] shrink-0 overflow-y-auto">
+              <TestimonialCard testimonial={t} />
+            </div>
+          ))}
+        </div>
+
+        {/* Progress indicator */}
+        <div className="shrink-0 px-6 pb-5 pt-3">
+          <div className="flex items-center gap-3">
+            <div className="h-0.5 flex-1 overflow-hidden rounded-full bg-[color:var(--line)]/40">
+              <div
+                className="h-full rounded-full bg-[color:var(--accent)] transition-[width] duration-150 ease-linear"
+                style={{ width: `${((mobileDotIndex + 1) / testimonials.length) * 100}%` }}
+              />
+            </div>
+            <span className="shrink-0 text-[10px] font-medium tabular-nums text-[color:var(--muted)]">
+              {String(mobileDotIndex + 1).padStart(2, "0")} / {String(testimonials.length).padStart(2, "0")}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Mobile CTA — after testimonials */}
+    <div className="px-4 pb-16 pt-6 lg:hidden">
+      <Container>
+        <div className="rounded-[2rem] border border-[color:var(--line)]/70 bg-[linear-gradient(180deg,rgba(255,255,255,0.99)_0%,rgba(251,248,242,0.96)_100%)] p-6 shadow-[0_20px_56px_rgba(15,23,42,0.06)]">
+          <h3 className="font-display text-xl font-semibold tracking-[-0.04em] text-[color:var(--text)]">
+            Hablemos directo
+          </h3>
+          <p className="mt-2 text-sm leading-6 text-[color:var(--muted)]">
+            Puro soporte humano para entender tu situación antes de proponer nada.
+          </p>
+          <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Button href={site.actions.primary.href} variant="primary">
+              Agendar consultoría
+            </Button>
+            <a
+              href={site.contact.whatsappHref}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="text-sm text-[color:var(--muted)] transition hover:text-[color:var(--text)]"
+            >
+              {site.contact.whatsappDisplay}
+            </a>
+          </div>
+        </div>
+      </Container>
+    </div>
+    </>
   );
 }
