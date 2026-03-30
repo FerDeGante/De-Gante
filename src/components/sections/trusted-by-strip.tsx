@@ -136,17 +136,7 @@ export function TrustedByStrip() {
             </p>
           </div>
 
-          <div className="md:hidden">
-            <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <div className="flex w-max items-center gap-3 pb-1">
-                {trustedLogos.map((logo) => (
-                  <TrustedLogoChip key={logo.alt} logo={logo} />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="relative hidden overflow-hidden md:block">
+          <div className="relative overflow-hidden">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-[color:var(--surface)] to-transparent"
@@ -156,7 +146,7 @@ export function TrustedByStrip() {
               className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-[color:var(--surface)] to-transparent"
             />
 
-            <div className="flex w-max items-center md:animate-[trusted-strip-marquee_42s_linear_infinite] motion-reduce:animate-none">
+            <div className="flex w-max items-center gap-3 animate-[trusted-strip-marquee_34s_linear_infinite] motion-reduce:animate-none">
               <div className="flex items-center gap-3">
                 {trustedLogos.map((logo) => (
                   <TrustedLogoChip key={`lead-${logo.alt}`} logo={logo} />

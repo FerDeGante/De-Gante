@@ -60,7 +60,7 @@ export function HeroSection() {
   return (
     <section
       id="inicio"
-      className="relative isolate scroll-mt-28 overflow-hidden pb-8 pt-8 sm:pb-10 sm:pt-10 lg:pb-12 lg:pt-12"
+      className="relative isolate scroll-mt-28 overflow-hidden pb-14 pt-6 sm:pb-12 sm:pt-10 lg:pb-12 lg:pt-12"
     >
       <div className="absolute inset-0 -z-10">
         <Image
@@ -78,7 +78,7 @@ export function HeroSection() {
       </div>
 
       <Container>
-        <div className="grid grid-cols-[minmax(0,1.16fr)_minmax(7.5rem,0.84fr)] items-center gap-5 sm:gap-8 md:grid-cols-[minmax(0,1.12fr)_minmax(10.5rem,0.88fr)] lg:grid-cols-[minmax(0,1.06fr)_minmax(18rem,0.94fr)] lg:items-start lg:gap-12 xl:gap-16">
+        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1.06fr)_minmax(18rem,0.94fr)] lg:items-start lg:gap-12 xl:gap-16">
           <div className="max-w-3xl pt-1 text-white lg:pt-3">
             <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-[color:var(--accent)]/95">
               {site.hero.eyebrow}
@@ -106,19 +106,23 @@ export function HeroSection() {
               </div>
             </div>
 
-            <p className="mt-5 max-w-2xl text-pretty text-lg leading-8 text-white/82 sm:text-xl">
+            <p className="mt-5 max-w-2xl text-pretty text-[clamp(0.95rem,3.3vw,1.05rem)] leading-6 text-white/76 sm:text-lg sm:leading-8">
               {site.hero.subheadline}
             </p>
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Button href={site.actions.primary.href} variant="primary">
-                {site.actions.primary.label}
+              <Button
+                href={site.actions.secondary.href}
+                variant="primary"
+                className="w-full max-w-[18rem] sm:w-auto"
+              >
+                {site.actions.secondary.label}
               </Button>
             </div>
           </div>
 
-          <div className="relative w-full max-w-[clamp(10rem,35vw,30rem)] justify-self-center">
-            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[2rem]">
+          <div className="relative w-full justify-self-center lg:max-w-[clamp(18rem,35vw,30rem)]">
+            <div className="relative mx-auto aspect-[4/5] w-full max-w-[min(94vw,28rem)] overflow-visible rounded-[2rem] sm:max-w-[26rem] sm:aspect-[4/5] lg:max-w-none">
               <Image
                 src={site.hero.visual.src}
                 alt={site.hero.visual.alt}
@@ -126,7 +130,7 @@ export function HeroSection() {
                 priority
                 unoptimized
                 sizes="(min-width: 1024px) 34rem, 40vw"
-                className="object-cover object-[74%_10%] scale-[1.06] drop-shadow-[0_30px_60px_rgba(7,24,33,0.5)] sm:object-[74%_12%] lg:object-[74%_14%]"
+                className="object-cover object-[50%_18%] scale-[1.08] drop-shadow-[0_30px_60px_rgba(7,24,33,0.5)] sm:object-[74%_12%] sm:scale-[1.05] lg:object-[74%_14%]"
               />
               <div className="absolute inset-x-0 bottom-0 h-[30%] bg-[linear-gradient(180deg,rgba(7,24,33,0)_0%,rgba(7,24,33,0.2)_34%,rgba(7,24,33,0.92)_100%)]" />
             </div>

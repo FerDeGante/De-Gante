@@ -129,6 +129,21 @@ const testimonials: Testimonial[] = [
   },
   {
     quote:
+      "Antes perdía prospectos porque no tenía cómo capturarlos a tiempo. Ahora la landing trabaja como un embudo automático: califica, filtra y me entrega clientes listos para comprar. ",
+    highlight: "Mi tasa de conversión se duplicó en el primer mes.",
+    name: "Ezequiel",
+    role: "Asesor financiero y de seguros",
+    company: "One Asesor",
+    url: "https://one-asesor.com/",
+    logo: {
+      src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774843276/one_va8roi.jpg",
+      width: 300,
+      height: 96,
+    },
+    type: "testimonial",
+  },
+  {
+    quote:
       "Mejores prácticas para la implementación de un marco regulatorio favorable al despliegue de infraestructura en telecomunicaciones.",
     highlight: "",
     name: "IFT",
@@ -165,14 +180,14 @@ function Stars() {
 function ClientLogo({ logo, name }: { logo: Testimonial["logo"]; name: string }) {
   if (logo) {
     return (
-      <div className="flex h-10 w-24 items-center">
+      <div className="flex h-12 w-32 items-center">
         <Image
           src={logo.src}
           alt={name}
           width={logo.width}
           height={logo.height}
           unoptimized
-          className="h-auto max-h-8 w-auto max-w-[6rem] object-contain grayscale opacity-70"
+          className="h-auto max-h-11 w-auto max-w-32 object-contain grayscale opacity-70"
         />
       </div>
     );
@@ -407,7 +422,7 @@ export function TestimonialsSection() {
         </div>
 
         {/* Two-column layout: sticky left + scrolling right */}
-        <div className="grid gap-10 lg:grid-cols-[0.7fr_1fr] lg:items-start lg:gap-14 xl:gap-20">
+        <div className="grid gap-10 lg:grid-cols-[0.7fr_1fr] lg:gap-14 xl:gap-20">
           {/* Left — hidden mobile, sticky desktop */}
           <div className="hidden lg:block">
             <StickyPanel titleFillStyle={titleFillStyle} />

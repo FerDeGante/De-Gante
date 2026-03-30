@@ -23,6 +23,7 @@ export type ProductRevealVisual = {
   headline: string;
   label: string;
   metric?: string;
+  compareLabels?: [string, string];
   media?: ProductRevealMedia[];
   mediaLayout?: ProductRevealMediaLayout;
   support: string;
@@ -158,8 +159,20 @@ export const joyaStudioReveal = {
         mediaLayout: "hero",
         media: [
           {
-            alt: "Joya Studio UI rendering results",
-            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774835644/Captura_de_pantalla_2026-03-29_a_la_s_7.44.58_p.m._hrnig3.png",
+            alt: "Earring render with natural lighting",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836024/earring-1_1_2_jl2wkb.png",
+          },
+          {
+            alt: "Earring render with refined metallic detail",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836051/earring-1_1_sdc1ly.png",
+          },
+          {
+            alt: "Joya Studio interface screenshot showing a prompt and result preview",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774835650/Captura_de_pantalla_2026-03-29_a_la_s_7.32.45_p.m._ldc1u5.png",
+          },
+          {
+            alt: "Joya Studio interface screenshot showing a final result preview",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774835620/Captura_de_pantalla_2026-03-29_a_la_s_7.49.35_p.m._c7swr3.png",
           },
         ],
         support: "Optimización automática de reflejos y texturas.",
@@ -199,7 +212,7 @@ export const joyaStudioReveal = {
             src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774835643/Captura_de_pantalla_2026-03-29_a_la_s_7.49.43_p.m._umxmrw.png",
           },
         ],
-        support: "Ajuste orgánico perfecto sobre la piel.",
+        support: "Ajuste orgánico sobre la piel.",
         variant: "message",
       },
     },
@@ -210,9 +223,10 @@ export const joyaStudioReveal = {
       title: "Escala tu marca a la velocidad de la IA.",
       visual: {
         chips: ["Batch Render", "Style Consistency", "E-com Ready"],
-        headline: "Flujo Infinito",
+        headline: "Flujo inmediato",
         label: "EFFICIENCY",
         metric: "⚡ Instant",
+        compareLabels: ["ANTES", "DESPUÉS"],
         mediaLayout: "compare",
         media: [
           {
@@ -244,12 +258,12 @@ export const joyaStudioReveal = {
             src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836273/earring-4_4_4_hrorhq.png",
           },
         ],
-        support: "Sincroniza el look de 50 piezas simultáneamente.",
+        support: "Al nivel de joyería premium.",
         variant: "compare",
       },
     },
   ],
-  context: "Tecnología de renderizado neuronal diseñada exclusivamente para la alta joyería.",
+  context: "Tecnología de renderizado diseñada exclusivamente para joyerías.",
   eyebrow: "JOYA STUDIO AI",
   headlineLines: ["De una foto casual,", "a una joya de campaña."],
   id: "joyastudio",
@@ -258,9 +272,9 @@ export const joyaStudioReveal = {
   visitHref: "https://www.joyastudio.com.mx/",
   visitLabel: "Comenzar a crear ahora",
   theme: {
-    accent: "#b67e4e",
-    accentSoft: "rgba(182, 126, 78, 0.12)",
-    accentStrong: "#7a502e",
+    accent: "#10a2c7",
+    accentSoft: "rgba(16, 162, 199, 0.12)",
+    accentStrong: "#097693",
   },
 } as const satisfies ProductRevealSectionContent;
 

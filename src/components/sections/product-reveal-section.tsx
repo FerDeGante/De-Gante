@@ -15,7 +15,7 @@ import type {
 } from "@/content/product-reveals";
 
 const HEADLINE_GRADIENT =
-  "linear-gradient(92deg, #f1e1cb 0%, #b67e4e 24%, #e7c79d 50%, #f6ead8 74%, #b67e4e 100%)";
+  "linear-gradient(92deg, #e6fbff 0%, #02abf3 26%, #10a2c7 52%, #097693 76%, #dff9ff 100%)";
 
 type RevealCSSVars = CSSProperties & Record<`--${string}`, string>;
 
@@ -87,11 +87,15 @@ function MediaImage({
   className,
   priority = false,
   fit = "cover",
+  label,
+  labelPosition = "left",
 }: {
   asset: ProductRevealMedia;
   className?: string;
   priority?: boolean;
   fit?: "cover" | "contain";
+  label?: string;
+  labelPosition?: "left" | "right";
 }) {
   return (
     <div className={cn("relative overflow-hidden bg-white", className)}>
@@ -103,6 +107,16 @@ function MediaImage({
         sizes="(max-width: 768px) 100vw, 45vw"
         className={fit === "contain" ? "object-contain p-3" : "object-cover"}
       />
+      {label ? (
+        <span
+          className={cn(
+            "absolute top-3 z-10 rounded-full border border-white/80 bg-white/92 px-3 py-1 text-[9px] font-medium uppercase tracking-[0.28em] text-[color:var(--text)] shadow-[0_12px_24px_rgba(15,23,42,0.08)] backdrop-blur-sm sm:px-3.5 sm:py-1.5",
+            labelPosition === "left" ? "left-3" : "right-3",
+          )}
+        >
+          {label}
+        </span>
+      ) : null}
     </div>
   );
 }
@@ -115,9 +129,8 @@ function MediaHeroSurface({
   visual: ProductRevealVisual;
 }) {
   const media = visual.media ?? [];
-  const first = media[0];
 
-  if (!first) {
+  if (media.length === 0) {
     return <EditorialSurface theme={theme} visual={visual} />;
   }
 
@@ -132,13 +145,45 @@ function MediaHeroSurface({
           {visual.metric ? <SurfacePill accent>{visual.metric}</SurfacePill> : null}
         </div>
 
-        <div className="absolute inset-x-4 bottom-4 top-16 overflow-hidden rounded-[1.85rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,245,239,0.96))]">
-          <MediaImage asset={first} fit="contain" priority />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,transparent_36%,rgba(15,23,42,0.22)_100%)]" />
-          <div className="absolute left-4 bottom-4 max-w-[12rem] rounded-full border border-white/80 bg-white/92 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-[color:var(--text)] shadow-[0_12px_24px_rgba(15,23,42,0.06)]">
+        <div className="absolute inset-x-4 bottom-4 top-16 overflow-hidden rounded-[1.9rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,245,239,0.96))] p-3">
+          {media.length >= 4 ? (
+            <div className="grid h-full grid-cols-12 gap-3">
+              <MediaImage
+                asset={media[0]}
+                className="col-span-7 h-full rounded-[1.9rem] border border-white/90 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+              />
+
+              <div className="col-span-5 grid gap-3">
+                <MediaImage
+                  asset={media[1]}
+                  className="min-h-[11rem] rounded-[1.55rem] border border-white/90 shadow-[0_18px_42px_rgba(15,23,42,0.07)]"
+                />
+
+                <div className="grid grid-cols-2 gap-3">
+                  <MediaImage
+                    asset={media[2]}
+                    fit="contain"
+                    className="min-h-[9rem] rounded-[1.35rem] border border-white/90 shadow-[0_16px_36px_rgba(15,23,42,0.06)]"
+                  />
+                  <MediaImage
+                    asset={media[3]}
+                    fit="contain"
+                    className="min-h-[9rem] rounded-[1.35rem] border border-white/90 shadow-[0_16px_36px_rgba(15,23,42,0.06)]"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="relative h-full overflow-hidden rounded-[1.7rem]">
+              <MediaImage asset={media[0]} fit="contain" priority />
+              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.08)_0%,transparent_38%,rgba(15,23,42,0.18)_100%)]" />
+            </div>
+          )}
+
+          <div className="absolute left-6 bottom-6 max-w-[12rem] rounded-full border border-white/80 bg-white/92 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-[color:var(--text)] shadow-[0_12px_24px_rgba(15,23,42,0.06)]">
             {visual.headline}
           </div>
-          <div className="absolute right-4 bottom-4 flex max-w-[14rem] flex-wrap justify-end gap-2">
+          <div className="absolute right-6 bottom-6 flex max-w-[14rem] flex-wrap justify-end gap-2">
             {visual.chips.map((chip, index) => (
               <SurfacePill key={chip} accent={index === 1} className="text-[9px] tracking-[0.24em]">
                 {chip}
@@ -216,6 +261,7 @@ function MediaCompareSurface({
   visual: ProductRevealVisual;
 }) {
   const media = visual.media ?? [];
+  const compareLabels = visual.compareLabels ?? [];
 
   if (media.length < 2) {
     return <CompareSurface theme={theme} visual={visual} />;
@@ -223,7 +269,7 @@ function MediaCompareSurface({
 
   return (
     <SurfaceFrame backgroundImage={makeSurfaceBackground(theme, "compare")}>
-      <div className="absolute inset-4 overflow-hidden rounded-[2.15rem] border border-white/88 bg-white/82 p-4 shadow-[0_26px_70px_rgba(15,23,42,0.08)] backdrop-blur-sm">
+      <div className="absolute inset-3 overflow-hidden rounded-[2rem] border border-white/88 bg-white/82 p-3 shadow-[0_26px_70px_rgba(15,23,42,0.08)] backdrop-blur-sm sm:inset-4 sm:rounded-[2.15rem] sm:p-4">
         <div className="flex items-start justify-between gap-3">
           <div className="flex flex-wrap gap-2">
             <SurfacePill accent>{visual.label}</SurfacePill>
@@ -232,24 +278,30 @@ function MediaCompareSurface({
           <SurfacePill accent>{visual.headline}</SurfacePill>
         </div>
 
-        <div className="mt-4 grid h-[calc(100%-4.25rem)] grid-rows-[1.05fr_auto] gap-3">
-          <div className="grid grid-cols-2 gap-3">
+        <div className="mt-4 grid gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <MediaImage
               asset={media[0]}
-              className="rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+              label={compareLabels[0]}
+              className="aspect-[16/9] rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+              fit="contain"
             />
             <MediaImage
               asset={media[1]}
-              className="rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+              label={compareLabels[1]}
+              labelPosition="right"
+              className="aspect-[16/9] rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+              fit="contain"
             />
           </div>
 
-          <div className="grid grid-cols-5 gap-2">
+          <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
             {media.slice(2, 7).map((asset, index) => (
               <MediaImage
                 key={`${asset.src}-${index}`}
                 asset={asset}
                 className="aspect-square rounded-[1rem] border border-white/85 shadow-[0_14px_30px_rgba(15,23,42,0.06)]"
+                fit="contain"
               />
             ))}
           </div>
@@ -594,14 +646,14 @@ function RevealCardItem({
       ref={setCardRef}
       data-index={index}
       className={cn(
-        "shrink-0 snap-start transition duration-300 ease-out",
-        isActive ? "opacity-100 scale-[1]" : "opacity-95 scale-[0.985]",
-        "min-w-[92%] sm:min-w-[78%] md:min-w-[68%] lg:min-w-[60%] xl:min-w-[54%] 2xl:min-w-[48%]",
+        "w-full shrink-0 transition duration-300 ease-out lg:snap-start",
+        isActive ? "opacity-100 lg:scale-[1]" : "opacity-100 lg:opacity-95 lg:scale-[0.985]",
+        "lg:min-w-[60%] xl:min-w-[54%] 2xl:min-w-[48%]",
       )}
     >
-      <CardShell className="h-full">
+      <CardShell className="h-full p-3 sm:p-4">
         <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 shadow-[0_16px_46px_rgba(15,23,42,0.05)]">
-          <div className="aspect-[16/11] min-h-[23rem] lg:min-h-[26rem]">
+          <div className="aspect-[4/5] min-h-[20rem] sm:aspect-[16/11] sm:min-h-[23rem] lg:min-h-[26rem]">
             <ProductSurface theme={theme} visual={card.visual} />
           </div>
         </div>
@@ -610,7 +662,7 @@ function RevealCardItem({
           <p className="text-[10px] font-medium uppercase tracking-[0.34em] text-[color:var(--muted)]">
             {card.label}
           </p>
-          <h3 className="font-display mt-3 max-w-[24ch] text-[clamp(1.35rem,2.2vw,1.85rem)] font-bold leading-[0.94] tracking-[-0.06em] text-[color:var(--text)]">
+          <h3 className="font-display mt-3 min-h-[3.4em] max-w-[24ch] text-[clamp(1.35rem,2.2vw,1.85rem)] font-bold leading-[0.94] tracking-[-0.06em] text-[color:var(--text)]">
             {card.title}
           </h3>
           <p className="mt-3 max-w-[34ch] text-pretty text-[13px] leading-6 text-[color:var(--muted)]/90">
@@ -830,7 +882,7 @@ export function ProductRevealSection({
           </div>
 
           <div className="min-w-0 lg:pt-10">
-            <div className="mb-6 hidden items-center justify-end gap-2 md:flex">
+            <div className="mb-6 hidden items-center justify-end gap-2 lg:flex">
               <CarouselButton
                 label="Ir a la tarjeta anterior"
                 disabled={prevDisabled}
@@ -865,7 +917,7 @@ export function ProductRevealSection({
 
             <div
               ref={trackRef}
-              className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              className="flex flex-col gap-8 overflow-visible pb-6 lg:flex-row lg:gap-4 lg:overflow-x-auto lg:scroll-smooth lg:snap-x lg:snap-mandatory xl:gap-6 [scrollbar-width:none] [-ms-overflow-style:none] lg:[&::-webkit-scrollbar]:hidden"
             >
               {content.cards.map((card, index) => (
                 <RevealCardItem
@@ -881,7 +933,7 @@ export function ProductRevealSection({
               ))}
             </div>
 
-            <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-5 hidden flex-col gap-5 lg:flex lg:flex-row lg:items-center lg:justify-between">
               <span className="text-[10px] font-medium uppercase tracking-[0.34em] text-[color:var(--muted)]">
                 {String(activeIndex + 1).padStart(2, "0")} /{" "}
                 {String(content.cards.length).padStart(2, "0")}
@@ -906,38 +958,6 @@ export function ProductRevealSection({
                   ))}
                 </div>
 
-                <div className="flex items-center gap-2 md:hidden">
-                  <CarouselButton
-                    label="Ir a la tarjeta anterior"
-                    disabled={prevDisabled}
-                    onClick={() => scrollToIndex(Math.max(0, activeIndex - 1))}
-                  >
-                    <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" className="size-5">
-                      <path
-                        d="M14.5 6.5L9 12l5.5 5.5"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.8"
-                      />
-                    </svg>
-                  </CarouselButton>
-                  <CarouselButton
-                    label="Ir a la siguiente tarjeta"
-                    disabled={nextDisabled}
-                    onClick={() => scrollToIndex(Math.min(content.cards.length - 1, activeIndex + 1))}
-                  >
-                    <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" className="size-5">
-                      <path
-                        d="M9.5 6.5L15 12l-5.5 5.5"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.8"
-                      />
-                    </svg>
-                  </CarouselButton>
-                </div>
               </div>
             </div>
           </div>

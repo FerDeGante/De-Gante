@@ -37,7 +37,7 @@ export const site = {
       "que frena tu facturación hoy?",
     ],
     subheadline:
-      "No diseño sitios pasivos. Construyo la infraestructura tecnológica que captura, califica y da seguimiento con criterio comercial para negocios que exigen resultados serios.",
+      "Descúbrelo con sólo 3 preguntas con este breve diagnóstico.",
     proof: [
       "+8 sistemas en producción",
       "3× reconocimientos institucionales",
