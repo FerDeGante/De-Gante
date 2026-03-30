@@ -428,10 +428,12 @@ export function TestimonialsSection() {
             <StickyPanel titleFillStyle={titleFillStyle} />
           </div>
 
-          {/* Right — testimonial cards scroll past the sticky panel */}
-          <div className="space-y-5">
+          {/* Right — horizontal slide on mobile, vertical stack on desktop */}
+          <div className="flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden lg:block lg:space-y-5 lg:overflow-x-visible lg:pb-0">
             {testimonials.map((t) => (
-              <TestimonialCard key={`${t.name}-${t.company}`} testimonial={t} />
+              <div key={`${t.name}-${t.company}`} className="min-w-[82vw] shrink-0 snap-start sm:min-w-[72vw] lg:min-w-0 lg:shrink">
+                <TestimonialCard testimonial={t} />
+              </div>
             ))}
           </div>
         </div>

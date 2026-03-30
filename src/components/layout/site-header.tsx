@@ -53,7 +53,7 @@ export function SiteHeader() {
                 className="h-full w-full object-cover"
               />
             </span>
-            <span className="flex min-w-0 flex-col leading-none">
+            <span className={cn("min-w-0 flex-col leading-none", isScrolled ? "hidden sm:flex" : "flex")}>
               <span className="text-[0.95rem] font-medium tracking-[-0.02em] text-[color:var(--text)] sm:text-[1rem]">
                 {site.name}
               </span>

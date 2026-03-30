@@ -279,23 +279,23 @@ function MediaCompareSurface({
         </div>
 
         <div className="mt-4 grid gap-3">
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <div className="grid grid-cols-2 gap-3">
             <MediaImage
               asset={media[0]}
               label={compareLabels[0]}
-              className="aspect-[16/9] rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+              className="aspect-square sm:aspect-video rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
               fit="contain"
             />
             <MediaImage
               asset={media[1]}
               label={compareLabels[1]}
               labelPosition="right"
-              className="aspect-[16/9] rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+              className="aspect-square sm:aspect-video rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
               fit="contain"
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-2 sm:grid-cols-5">
+          <div className="hidden sm:grid grid-cols-5 gap-2">
             {media.slice(2, 7).map((asset, index) => (
               <MediaImage
                 key={`${asset.src}-${index}`}
