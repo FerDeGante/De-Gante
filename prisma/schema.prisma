@@ -1,0 +1,195 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ─── Lead ──────────────────────────────────────────────────────────────────────
+
+enum LeadStatus {
+  new
+  diagnosed
+  qualified
+  appointment_requested
+  contacted
+  nurturing
+  won
+  lost
+}
+
+enum LeadSource {
+  diagnostic
+  appointment_form
+  contact_form
+  whatsapp_inbound
+  manual
+}
+
+model Lead {
+  id                 String    @id @default(cuid())
+  fullName           String
+  email              String
+  phone              String
+  company            String?
+  source             LeadSource @default(manual)
+  status             LeadStatus @default(new)
+  qualificationLevel Int        @default(0)
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  diagnosticSubmissions DiagnosticSubmission[]
+  appointmentRequests   AppointmentRequest[]
+  contactEvents         ContactEvent[]
+  followUpTasks         FollowUpTask[]
+  messageLogs           MessageLog[]
+
+  @@unique([email])
+  @@index([phone])
+  @@index([status])
+  @@index([createdAt])
+}
+
+// ─── Diagnostic ────────────────────────────────────────────────────────────────
+
+model DiagnosticSubmission {
+  id                  String   @id @default(cuid())
+  leadId              String
+  answersJson         Json
+  resultKey           String
+  resultTitle         String
+  summary             String
+  recommendedNextStep String
+  createdAt           DateTime @default(now())
+
+  lead Lead @relation(fields: [leadId], references: [id])
+
+  @@index([leadId])
+}
+
+// ─── Appointments ──────────────────────────────────────────────────────────────
+
+enum AppointmentStatus {
+  pending
+  confirmed
+  completed
+  cancelled
+}
+
+model AppointmentRequest {
+  id            String            @id @default(cuid())
+  leadId        String
+  preferredDate String?
+  preferredTime String?
+  notes         String?
+  status        AppointmentStatus @default(pending)
+  createdAt     DateTime          @default(now())
+
+  lead Lead @relation(fields: [leadId], references: [id])
+
+  @@index([leadId])
+  @@index([status])
+}
+
+// ─── Contact Events ────────────────────────────────────────────────────────────
+
+enum ContactEventType {
+  diagnostic_submitted
+  appointment_requested
+  contact_form_submitted
+  email_sent
+  email_received
+  whatsapp_sent
+  whatsapp_received
+  status_change
+  note
+}
+
+enum ContactChannel {
+  web
+  email
+  whatsapp
+  phone
+  system
+}
+
+model ContactEvent {
+  id          String           @id @default(cuid())
+  leadId      String
+  type        ContactEventType
+  channel     ContactChannel
+  payloadJson Json?
+  createdAt   DateTime         @default(now())
+
+  lead Lead @relation(fields: [leadId], references: [id])
+
+  @@index([leadId])
+  @@index([type])
+  @@index([createdAt])
+}
+
+// ─── Follow-Up Tasks ───────────────────────────────────────────────────────────
+
+enum TaskStatus {
+  pending
+  in_progress
+  completed
+  cancelled
+}
+
+model FollowUpTask {
+  id          String     @id @default(cuid())
+  leadId      String
+  title       String
+  description String?
+  dueAt       DateTime?
+  status      TaskStatus @default(pending)
+  createdAt   DateTime   @default(now())
+
+  lead Lead @relation(fields: [leadId], references: [id])
+
+  @@index([leadId])
+  @@index([status])
+  @@index([dueAt])
+}
+
+// ─── Message Logs ──────────────────────────────────────────────────────────────
+
+enum MessageChannel {
+  email
+  whatsapp
+  sms
+}
+
+enum MessageDirection {
+  outbound
+  inbound
+}
+
+enum DeliveryStatus {
+  queued
+  sent
+  delivered
+  read
+  failed
+}
+
+model MessageLog {
+  id                String           @id @default(cuid())
+  leadId            String
+  channel           MessageChannel
+  direction         MessageDirection
+  templateKey       String?
+  contentPreview    String?
+  providerMessageId String?
+  deliveryStatus    DeliveryStatus   @default(queued)
+  createdAt         DateTime         @default(now())
+
+  lead Lead @relation(fields: [leadId], references: [id])
+
+  @@index([leadId])
+  @@index([channel])
+  @@index([deliveryStatus])
+}

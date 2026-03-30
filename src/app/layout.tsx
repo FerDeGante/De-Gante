@@ -1,35 +1,59 @@
+import type { Metadata } from "next";
+import { Inter, Inter_Tight } from "next/font/google";
+import type { ReactNode } from "react";
+import { SiteHeader } from "@/components/layout/site-header";
+import { Footer } from "@/components/layout/footer";
+import { site } from "@/content/site";
 import "./globals.css";
-import { Metadata } from "next";
-import { Inter } from "next/font/google";
-import Footer from "@/src/components/Footer";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "swiper/css";
-import "swiper/css/pagination";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const interTight = Inter_Tight({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
-  title: "Fernando De Gante | Portafolio",
-  description: "Consultor en tecnología, GovTech y transformación digital.",
-  metadataBase: new URL("https://de-gante.com"),
+  metadataBase: new URL(site.siteUrl),
+  title: {
+    default: site.name,
+    template: `%s | ${site.name}`,
+  },
+  description: site.description,
   alternates: {
-    canonical: "https://de-gante.com",
+    canonical: site.siteUrl,
   },
   openGraph: {
-    title: "Fernando De Gante | Portafolio",
-    description: "Consultor en tecnología, GovTech y transformación digital.",
-    url: "https://de-gante.com",
-    siteName: "Fernando De Gante",
-    images: [
-      {
-        url: "https://de-gante.com/images/dg_preview_site.jpeg", // ✅ la correcta
-        width: 1200,
-        height: 630,
-        alt: "Fernando De Gante | Logo",
-      },
-    ],
+    title: site.name,
+    description: site.description,
+    url: site.siteUrl,
+    siteName: site.name,
     locale: "es_MX",
     type: "website",
+    images: [
+      {
+        url: site.hero.visual.src,
+        width: 1200,
+        height: 1500,
+        alt: site.hero.visual.alt,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.name,
+    description: site.description,
+    images: [site.hero.visual.src],
+  },
+  icons: {
+    icon: site.brandMark.src,
+    shortcut: site.brandMark.src,
+    apple: site.brandMark.src,
   },
   robots: {
     index: true,
@@ -39,38 +63,20 @@ export const metadata: Metadata = {
       follow: true,
     },
   },
-  icons: {
-    icon: "/images/monograma_dg.jpeg",
-    shortcut: "/images/imagotipo_dg.png",
-  },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: ReactNode;
+}>) {
   return (
-    <html lang="es">
-      <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
-        {/* ✅ Usa la misma imagen del Open Graph aquí también */}
-        <meta property="og:image" content="https://de-gante.com/images/dg_preview_site.jpeg" />
-        <meta property="og:image:type" content="image/jpeg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        
-        {/* Iconos del sitio */}
-        <link rel="icon" href="/images/monograma_dg.jpeg" type="image/jpeg" />
-        <link rel="shortcut icon" href="/images/imagotipo_dg.png" type="image/png" />
-
-        {/* Fuentes */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <body className={inter.className}>
-        {children}
+    <html lang="es-MX" className={`${inter.variable} ${interTight.variable}`}>
+      <body className="bg-[color:var(--background)] text-[color:var(--text)] antialiased">
+        <SiteHeader />
+        <main id="contenido" className="relative">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

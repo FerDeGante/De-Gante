@@ -1,25 +1,23 @@
-import Hero from "@/src/components/Hero";
-import Projects from "@/src/components/Projects";
-import ContactForm from "@/src/components/ContactForm";
-import WhatsAppButton from "@/src/components/WhatsAppButton";
-import Strategic from "@/src/components/Strategic";
-import Participations from "@/src/components/Participations";
-import Services from "@/src/components/Services";
-import OpenSourcePlatforms from "@/src/components/OpenSourcePlatforms";
+import { HeroSection } from "@/components/sections/hero";
+import { BriefDiagnosticConnected } from "@/components/sections/brief-diagnostic-connected";
+import { RelativumCommerceEngine } from "@/components/sections/relativum-commerce-engine";
+import { JoyaStudioSection } from "@/components/sections/joya-studio-section";
+import { PawfectSection } from "@/components/sections/pawfect-section";
+import { TrustedByStrip } from "@/components/sections/trusted-by-strip";
+import { TestimonialsSection } from "@/components/sections/testimonials-section";
+import { FinalCta } from "@/components/sections/final-cta";
 
 export default function Home() {
   return (
-    <main>
-      <Hero />
-      <Strategic />
-      <Participations />
-      <Projects />
-      <Services />
-      <OpenSourcePlatforms />
-      <section id="contacto">
-        <ContactForm />
-      </section>
-      <WhatsAppButton />
-    </main>
+    <>
+      <HeroSection />
+      <TrustedByStrip />
+      <RelativumCommerceEngine />
+      <JoyaStudioSection />
+      <PawfectSection />
+      <BriefDiagnosticConnected />
+      <TestimonialsSection />
+      <FinalCta />
+    </>
   );
 }
