@@ -15,7 +15,7 @@ import type {
 } from "@/content/product-reveals";
 
 const HEADLINE_GRADIENT =
-  "linear-gradient(92deg, #e6fbff 0%, #02abf3 26%, #10a2c7 52%, #097693 76%, #dff9ff 100%)";
+  "linear-gradient(92deg, #f1e1cb 0%, #b67e4e 24%, #e7c79d 50%, #f6ead8 74%, #b67e4e 100%)";
 
 type RevealCSSVars = CSSProperties & Record<`--${string}`, string>;
 
@@ -86,10 +86,12 @@ function MediaImage({
   asset,
   className,
   priority = false,
+  fit = "cover",
 }: {
   asset: ProductRevealMedia;
   className?: string;
   priority?: boolean;
+  fit?: "cover" | "contain";
 }) {
   return (
     <div className={cn("relative overflow-hidden bg-white", className)}>
@@ -99,7 +101,7 @@ function MediaImage({
         fill
         priority={priority}
         sizes="(max-width: 768px) 100vw, 45vw"
-        className="object-cover"
+        className={fit === "contain" ? "object-contain p-3" : "object-cover"}
       />
     </div>
   );
@@ -130,15 +132,15 @@ function MediaHeroSurface({
           {visual.metric ? <SurfacePill accent>{visual.metric}</SurfacePill> : null}
         </div>
 
-        <div className="absolute inset-x-4 bottom-4 top-16 overflow-hidden rounded-[1.7rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,245,239,0.96))]">
-          <MediaImage asset={first} priority />
-          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(9,14,18,0.02)_0%,transparent_32%,rgba(9,14,18,0.24)_100%)]" />
-          <div className="absolute left-4 top-4 max-w-[12rem] rounded-[1.2rem] border border-white/80 bg-white/92 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.28em] text-[color:var(--text)] shadow-[0_12px_24px_rgba(15,23,42,0.06)]">
+        <div className="absolute inset-x-4 bottom-4 top-16 overflow-hidden rounded-[1.85rem] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(248,245,239,0.96))]">
+          <MediaImage asset={first} fit="contain" priority />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,transparent_36%,rgba(15,23,42,0.22)_100%)]" />
+          <div className="absolute left-4 bottom-4 max-w-[12rem] rounded-full border border-white/80 bg-white/92 px-3 py-2 text-[10px] font-medium uppercase tracking-[0.28em] text-[color:var(--text)] shadow-[0_12px_24px_rgba(15,23,42,0.06)]">
             {visual.headline}
           </div>
-          <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
+          <div className="absolute right-4 bottom-4 flex max-w-[14rem] flex-wrap justify-end gap-2">
             {visual.chips.map((chip, index) => (
-              <SurfacePill key={chip} accent={index === 1}>
+              <SurfacePill key={chip} accent={index === 1} className="text-[9px] tracking-[0.24em]">
                 {chip}
               </SurfacePill>
             ))}
@@ -174,11 +176,26 @@ function MediaCollageSurface({
         </div>
 
         <div className="mt-4 grid h-[calc(100%-4.5rem)] grid-cols-12 grid-rows-2 gap-3">
-          <MediaImage asset={media[0]} className="col-span-7 row-span-2 rounded-[1.85rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]" />
-          <MediaImage asset={media[1]} className="col-span-5 rounded-[1.45rem] border border-white/85 shadow-[0_16px_36px_rgba(15,23,42,0.06)]" />
-          <MediaImage asset={media[2]} className="col-span-5 rounded-[1.45rem] border border-white/85 shadow-[0_16px_36px_rgba(15,23,42,0.06)]" />
-          <MediaImage asset={media[3]} className="col-span-4 rounded-[1.35rem] border border-white/85 shadow-[0_16px_36px_rgba(15,23,42,0.06)]" />
-          <MediaImage asset={media[4]} className="col-span-8 rounded-[1.35rem] border border-white/85 shadow-[0_16px_36px_rgba(15,23,42,0.06)]" />
+          <MediaImage
+            asset={media[0]}
+            className="col-span-7 row-span-2 rounded-[1.85rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+          />
+          <MediaImage
+            asset={media[1]}
+            className="col-span-5 rounded-[1.45rem] border border-white/85 shadow-[0_16px_36px_rgba(15,23,42,0.06)]"
+          />
+          <MediaImage
+            asset={media[2]}
+            className="col-span-5 rounded-[1.45rem] border border-white/85 shadow-[0_16px_36px_rgba(15,23,42,0.06)]"
+          />
+          <MediaImage
+            asset={media[3]}
+            className="col-span-4 rounded-[1.35rem] border border-white/85 shadow-[0_16px_36px_rgba(15,23,42,0.06)]"
+          />
+          <MediaImage
+            asset={media[4]}
+            className="col-span-8 rounded-[1.35rem] border border-white/85 shadow-[0_16px_36px_rgba(15,23,42,0.06)]"
+          />
         </div>
 
         <div className="absolute bottom-4 left-4 max-w-[15rem] rounded-[1.25rem] border border-white/86 bg-white/92 px-4 py-3 shadow-[0_14px_32px_rgba(15,23,42,0.06)]">
@@ -217,8 +234,14 @@ function MediaCompareSurface({
 
         <div className="mt-4 grid h-[calc(100%-4.25rem)] grid-rows-[1.05fr_auto] gap-3">
           <div className="grid grid-cols-2 gap-3">
-            <MediaImage asset={media[0]} className="rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]" />
-            <MediaImage asset={media[1]} className="rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]" />
+            <MediaImage
+              asset={media[0]}
+              className="rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+            />
+            <MediaImage
+              asset={media[1]}
+              className="rounded-[1.6rem] border border-white/85 shadow-[0_20px_50px_rgba(15,23,42,0.08)]"
+            />
           </div>
 
           <div className="grid grid-cols-5 gap-2">
@@ -573,27 +596,27 @@ function RevealCardItem({
       className={cn(
         "shrink-0 snap-start transition duration-300 ease-out",
         isActive ? "opacity-100 scale-[1]" : "opacity-95 scale-[0.985]",
-        "min-w-[92%] sm:min-w-[78%] md:min-w-[68%] lg:min-w-[62%] xl:min-w-[56%] 2xl:min-w-[50%]",
+        "min-w-[92%] sm:min-w-[78%] md:min-w-[68%] lg:min-w-[60%] xl:min-w-[54%] 2xl:min-w-[48%]",
       )}
     >
       <CardShell className="h-full">
         <div className="relative overflow-hidden rounded-[2rem] border border-white/80 bg-white/80 shadow-[0_16px_46px_rgba(15,23,42,0.05)]">
-          <div className="aspect-[16/12] min-h-[22rem] lg:min-h-[24rem]">
+          <div className="aspect-[16/11] min-h-[23rem] lg:min-h-[26rem]">
             <ProductSurface theme={theme} visual={card.visual} />
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col px-1 pb-1 pt-4">
+        <div className="flex flex-1 flex-col px-1 pb-1 pt-5">
           <p className="text-[10px] font-medium uppercase tracking-[0.34em] text-[color:var(--muted)]">
             {card.label}
           </p>
-          <h3 className="font-display mt-3 max-w-[24ch] text-[clamp(1.4rem,2.5vw,2rem)] font-semibold leading-[0.96] tracking-[-0.055em] text-[color:var(--text)]">
+          <h3 className="font-display mt-3 max-w-[24ch] text-[clamp(1.35rem,2.2vw,1.85rem)] font-bold leading-[0.94] tracking-[-0.06em] text-[color:var(--text)]">
             {card.title}
           </h3>
-          <p className="mt-3 max-w-[34ch] text-pretty text-[14px] leading-6 text-[color:var(--muted)]">
+          <p className="mt-3 max-w-[34ch] text-pretty text-[13px] leading-6 text-[color:var(--muted)]/90">
             {card.description}
           </p>
-          <p className="mt-4 max-w-[34ch] text-[12px] font-medium leading-5 text-[color:var(--accent-strong)] sm:text-sm">
+          <p className="mt-4 max-w-[34ch] text-[11px] font-medium leading-5 tracking-[0.01em] text-[color:var(--accent-strong)] sm:text-xs">
             {card.benefit}
           </p>
         </div>
@@ -753,7 +776,7 @@ export function ProductRevealSection({
     <section
       id={content.id}
       ref={sectionRef}
-      className="relative isolate scroll-mt-28 overflow-hidden py-20 sm:py-24 lg:py-28"
+      className="relative isolate scroll-mt-28 overflow-hidden py-24 sm:py-28 lg:py-32"
       style={sectionStyle}
     >
       <div
@@ -763,15 +786,15 @@ export function ProductRevealSection({
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(252,251,248,0.92)_0%,rgba(255,255,255,1)_42%,rgba(246,243,236,0.86)_100%)]" />
 
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] lg:items-start">
-          <div className="max-w-2xl text-left">
-            <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-[color:var(--reveal-accent-strong)]">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:items-start lg:gap-12">
+          <div className="max-w-3xl text-left">
+            <p className="text-[12px] font-medium uppercase tracking-[0.34em] text-[color:var(--reveal-accent-strong)]">
               {content.eyebrow}
             </p>
 
-            <div className="relative mt-4 max-w-5xl">
+            <div className="relative mt-5 max-w-5xl">
               <h2
-                className="font-display relative z-10 max-w-5xl text-balance text-[clamp(2.3rem,5.7vw,5.6rem)] font-semibold leading-[0.93] tracking-[-0.06em] sm:text-[clamp(2.7rem,5vw,6.2rem)]"
+                className="font-display relative z-10 max-w-5xl text-balance text-[clamp(2.6rem,6.5vw,6.8rem)] font-semibold leading-[0.88] tracking-[-0.07em] sm:text-[clamp(3rem,6vw,7.6rem)]"
                 style={titleFillStyle}
               >
                 <span className="block">{content.headlineLines[0]}</span>
@@ -779,29 +802,35 @@ export function ProductRevealSection({
               </h2>
             </div>
 
-            <p className="mt-6 max-w-3xl text-pretty text-base leading-7 text-[color:var(--muted)] sm:text-lg sm:leading-8">
+            <p className="mt-8 max-w-4xl text-balance text-[clamp(1.2rem,2vw,1.75rem)] font-light leading-[1.38] tracking-[-0.03em] text-[color:var(--text)]/92 sm:text-[clamp(1.4rem,1.6vw,2rem)]">
               {content.intro}
             </p>
 
-            <p className="mt-10 max-w-xl text-sm leading-7 text-[color:var(--muted)] sm:text-base">
+            <p className="mt-12 max-w-xl text-sm leading-7 text-[color:var(--muted)]/92 sm:text-base">
               {content.context}
             </p>
 
-            <p className="mt-4 max-w-xl text-sm leading-7 text-[color:var(--muted)] sm:text-base">
+            <p className="mt-5 max-w-xl text-sm leading-7 text-[color:var(--muted)]/88 sm:text-base">
               {content.exploreHint}
             </p>
 
             {content.visitHref && content.visitLabel ? (
-              <div className="mt-8">
-                <Button href={content.visitHref} variant="primary" target="_blank">
+              <div className="mt-12">
+                <Button
+                  href={content.visitHref}
+                  variant="primary"
+                  size="md"
+                  className="h-12 px-6 text-sm sm:h-12 sm:px-6"
+                  target="_blank"
+                >
                   {content.visitLabel}
                 </Button>
               </div>
             ) : null}
           </div>
 
-          <div className="min-w-0">
-            <div className="mb-4 hidden items-center justify-end gap-2 md:flex">
+          <div className="min-w-0 lg:pt-10">
+            <div className="mb-6 hidden items-center justify-end gap-2 md:flex">
               <CarouselButton
                 label="Ir a la tarjeta anterior"
                 disabled={prevDisabled}
@@ -836,7 +865,7 @@ export function ProductRevealSection({
 
             <div
               ref={trackRef}
-              className="flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
             >
               {content.cards.map((card, index) => (
                 <RevealCardItem
@@ -852,7 +881,7 @@ export function ProductRevealSection({
               ))}
             </div>
 
-            <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mt-5 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <span className="text-[10px] font-medium uppercase tracking-[0.34em] text-[color:var(--muted)]">
                 {String(activeIndex + 1).padStart(2, "0")} /{" "}
                 {String(content.cards.length).padStart(2, "0")}
