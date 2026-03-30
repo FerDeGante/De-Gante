@@ -5,6 +5,13 @@ export type ProductRevealVisualVariant =
   | "bridge"
   | "signal";
 
+export type ProductRevealMediaLayout = "hero" | "collage" | "compare";
+
+export type ProductRevealMedia = {
+  alt: string;
+  src: string;
+};
+
 export type ProductRevealTheme = {
   accent: string;
   accentSoft: string;
@@ -16,6 +23,8 @@ export type ProductRevealVisual = {
   headline: string;
   label: string;
   metric?: string;
+  media?: ProductRevealMedia[];
+  mediaLayout?: ProductRevealMediaLayout;
   support: string;
   variant: ProductRevealVisualVariant;
 };
@@ -147,6 +156,13 @@ export const joyaStudioReveal = {
         headline: "Claridad Diamante",
         label: "PROCESANDO",
         metric: "4K Export",
+        mediaLayout: "hero",
+        media: [
+          {
+            alt: "Joya Studio UI screenshot showing the product reveal interface",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774835644/Captura_de_pantalla_2026-03-29_a_la_s_7.44.58_p.m._hrnig3.png",
+          },
+        ],
         support: "Optimización de reflejos y texturas en tiempo real.",
         variant: "editorial",
       },
@@ -162,6 +178,29 @@ export const joyaStudioReveal = {
         headline: "Ajuste Orgánico",
         label: "AI MODELING",
         metric: "Perfect Fit",
+        mediaLayout: "collage",
+        media: [
+          {
+            alt: "Generated earring model on a realistic portrait",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836031/earring-1_1_3_g8ufuv.png",
+          },
+          {
+            alt: "Generated earring model variation with warm lighting",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836024/earring-1_1_2_jl2wkb.png",
+          },
+          {
+            alt: "Generated earring model variation with a dark background",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836058/earring-2_2_2_kbbp31.png",
+          },
+          {
+            alt: "Generated earring model variation with a soft portrait crop",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836051/earring-1_1_sdc1ly.png",
+          },
+          {
+            alt: "Joya Studio UI screenshot showing model generation",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774835643/Captura_de_pantalla_2026-03-29_a_la_s_7.49.43_p.m._umxmrw.png",
+          },
+        ],
         support: "La IA detecta puntos de presión para que la joya se pose naturalmente sobre la piel.",
         variant: "message",
       },
@@ -177,6 +216,37 @@ export const joyaStudioReveal = {
         headline: "Estética Unificada",
         label: "BATCH RENDER",
         metric: "⚡ Instant",
+        mediaLayout: "compare",
+        media: [
+          {
+            alt: "Original phone photo of a jewelry piece",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836299/PHOTO-2026-02-05-18-04-39_frckrk_1_ra3hij.jpg",
+          },
+          {
+            alt: "Final rendered jewelry image",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836289/earring-1_1_5_uqziy8.png",
+          },
+          {
+            alt: "Additional bracelet render for batch consistency",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836193/bracelet-3_3_mu35kw.png",
+          },
+          {
+            alt: "Additional necklace render for batch consistency",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836200/necklace-1_3_1_ccqn78.png",
+          },
+          {
+            alt: "Additional earring render for batch consistency",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836268/earring-4_3_2_pfi30h.png",
+          },
+          {
+            alt: "Additional necklace render for batch consistency",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836208/necklace-1_3_jememk.png",
+          },
+          {
+            alt: "Additional earring render for batch consistency",
+            src: "https://res.cloudinary.com/ddax9tdki/image/upload/v1774836273/earring-4_4_4_hrorhq.png",
+          },
+        ],
         support: "Sincroniza el look & feel de 50 piezas simultáneamente.",
         variant: "compare",
       },
