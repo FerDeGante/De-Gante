@@ -1,22 +1,21 @@
 "use client";
 
-import { BriefDiagnostic } from "./brief-diagnostic";
-import { api } from "@/lib/api-client";
+import { BriefDiagnostic, buildDiagnosticWhatsAppLink } from "./brief-diagnostic";
 
 export function BriefDiagnosticConnected() {
   return (
     <BriefDiagnostic
       onSubmit={async (payload) => {
-        const result = await api.diagnostic.submit({
-          fullName: payload.lead.name,
-          email: payload.lead.email,
-          phone: payload.lead.phone,
-          company: payload.lead.company || undefined,
-          answers: payload.answers,
-        });
+        const whatsappLink = buildDiagnosticWhatsAppLink(payload);
 
-        if (!result.ok) {
-          throw new Error(result.error ?? "Error al enviar diagnóstico");
+        if (typeof window === "undefined") {
+          return;
+        }
+
+        const popup = window.open(whatsappLink, "_blank", "noopener,noreferrer");
+
+        if (!popup) {
+          window.location.href = whatsappLink;
         }
       }}
     />

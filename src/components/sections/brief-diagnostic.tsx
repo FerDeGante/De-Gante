@@ -35,7 +35,7 @@ type DiagnosticOutcome = {
   tension: string;
 };
 
-type DiagnosticSubmission = {
+export type DiagnosticSubmission = {
   answers: DiagnosticAnswers;
   lead: DiagnosticLead;
   outcome: DiagnosticOutcome;
@@ -299,6 +299,33 @@ function calculateOutcome(answers: DiagnosticAnswers): DiagnosticOutcome {
 function formatAnswerLabel(questionId: keyof DiagnosticAnswers, optionId: string) {
   const question = diagnosticQuestions.find((item) => item.id === questionId);
   return question?.options.find((option) => option.id === optionId)?.label ?? "";
+}
+
+export function buildDiagnosticWhatsAppLink(payload: DiagnosticSubmission) {
+  const answerLines = diagnosticQuestions
+    .map((question) => {
+      const value = formatAnswerLabel(question.id, payload.answers[question.id]);
+      return value ? `${question.label}: ${value}` : null;
+    })
+    .filter((line): line is string => Boolean(line));
+
+  const messageLines = [
+    "Hola Fernando, te comparto mi diagnóstico:",
+    "",
+    `Nombre: ${payload.lead.name}`,
+    `Correo: ${payload.lead.email}`,
+    `WhatsApp: ${payload.lead.phone}`,
+    `Empresa: ${payload.lead.company || "No proporcionada"}`,
+    "",
+    `Resultado: ${payload.outcome.category}`,
+    `Lectura: ${payload.outcome.tension}`,
+    `Siguiente paso: ${payload.outcome.nextStep}`,
+    "",
+    "Respuestas:",
+    ...answerLines.map((line) => `- ${line}`),
+  ];
+
+  return `${site.contact.whatsappHref}?text=${encodeURIComponent(messageLines.join("\n"))}`;
 }
 
 function QuestionProgress({ activeIndex }: { activeIndex: number }) {
