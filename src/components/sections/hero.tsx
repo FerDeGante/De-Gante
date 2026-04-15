@@ -78,7 +78,7 @@ export function HeroSection() {
       </div>
 
       <Container>
-        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1.06fr)_minmax(18rem,0.94fr)] lg:items-start lg:gap-12 xl:gap-16">
+        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-start lg:gap-0">
           <div className="max-w-3xl pt-1 text-white lg:pt-3">
             <p className="text-[11px] font-medium uppercase tracking-[0.34em] text-[color:var(--accent)]/95">
               {site.hero.eyebrow}
@@ -121,8 +121,8 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="relative w-full justify-self-center lg:max-w-[clamp(18rem,35vw,30rem)]">
-            <div className="relative mx-auto aspect-[4/5] w-full max-w-[min(94vw,28rem)] overflow-visible rounded-[2rem] sm:max-w-[26rem] sm:aspect-[4/5] lg:max-w-none">
+          <div className="relative w-full justify-self-end drop-shadow-[0_30px_60px_rgba(7,24,33,0.5)] lg:self-end lg:-mr-8 xl:-mr-16">
+            <div className="relative ml-auto aspect-[4/5] w-full max-w-[min(94vw,28rem)] overflow-hidden rounded-[2rem] sm:aspect-[4/5] sm:max-w-[26rem] lg:max-w-none lg:w-full">
               <Image
                 src={site.hero.visual.src}
                 alt={site.hero.visual.alt}
@@ -130,7 +130,7 @@ export function HeroSection() {
                 priority
                 unoptimized
                 sizes="(min-width: 1024px) 34rem, 40vw"
-                className="object-cover object-[50%_18%] scale-[1.08] drop-shadow-[0_30px_60px_rgba(7,24,33,0.5)] sm:object-[74%_12%] sm:scale-[1.05] lg:object-[74%_14%]"
+                className="object-cover object-[50%_18%] sm:object-[74%_12%] lg:object-[74%_14%]"
               />
               <div className="absolute inset-x-0 bottom-0 h-[30%] bg-[linear-gradient(180deg,rgba(7,24,33,0)_0%,rgba(7,24,33,0.2)_34%,rgba(7,24,33,0.92)_100%)]" />
             </div>
