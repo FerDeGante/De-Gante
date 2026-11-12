@@ -246,6 +246,10 @@
 .hero .eyebrow {
   margin-bottom: 24px;
 }
+.unbroken {
+  display: inline-block;
+  white-space: nowrap;
+}
 .strikeWord {
   position: relative;
   display: inline-block;

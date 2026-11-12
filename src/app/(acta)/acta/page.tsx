@@ -45,24 +45,26 @@ export default function ActaPage() {
           <RevealLines>
             <h1 id="acta-hero">
               {acta.hero.headline.slice(0, strikeIndex)}
-              <span className={styles.strikeWord}>
-                {acta.hero.strikeWord}
-                <svg
-                  viewBox="0 0 240 30"
-                  preserveAspectRatio="none"
-                  aria-hidden="true"
-                >
-                  <path
-                    data-strike
-                    pathLength="1"
-                    strokeDasharray="1"
-                    d="M3 22 237 8"
-                  />
-                </svg>
+              <span className={styles.unbroken}>
+                <span className={styles.strikeWord}>
+                  {acta.hero.strikeWord}
+                  <svg
+                    viewBox="0 0 240 30"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      data-strike
+                      pathLength="1"
+                      strokeDasharray="1"
+                      d="M3 22 237 8"
+                    />
+                  </svg>
+                </span>
+                {acta.hero.headline.slice(
+                  strikeIndex + acta.hero.strikeWord.length,
+                )}
               </span>
-              {acta.hero.headline.slice(
-                strikeIndex + acta.hero.strikeWord.length,
-              )}
             </h1>
           </RevealLines>
           <p className={styles.heroSubtitle}>{acta.hero.subtitle}</p>
