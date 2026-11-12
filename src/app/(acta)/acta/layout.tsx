@@ -3,7 +3,8 @@ import type { ReactNode } from "react";
 import { Inter, Poppins, Yellowtail } from "next/font/google";
 import { acta } from "@/content/acta";
 import { site } from "@/content/site";
-import { ActaCta } from "@/components/acta/acta-ui";
+import { FloatingWhatsApp } from "@/components/acta/acta-ui";
+import { ActaNavigation } from "@/components/acta/acta-navigation";
 import styles from "./acta.module.css";
 
 const inter = Inter({
@@ -70,7 +71,7 @@ export default function ActaLayout({ children }: { children: ReactNode }) {
             {acta.brand.name}
             <span>{acta.brand.method}</span>
           </a>
-          <ActaCta section="header" />
+          <ActaNavigation navigation={acta.navigation} />
         </div>
       </header>
       <main id="acta-contenido">{children}</main>
@@ -86,6 +87,7 @@ export default function ActaLayout({ children }: { children: ReactNode }) {
           </div>
         </div>
       </footer>
+      <FloatingWhatsApp />
     </div>
   );
 }

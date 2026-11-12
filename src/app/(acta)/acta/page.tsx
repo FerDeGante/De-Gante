@@ -9,6 +9,7 @@ import {
   AccentWord,
   ActaCta,
   DocumentPreview,
+  HeroHeadline,
   Matrix,
   MediaSlot,
   SectionIndex,
@@ -22,8 +23,6 @@ import {
 import styles from "./acta.module.css";
 
 export default function ActaPage() {
-  const strikeIndex = acta.hero.headline.indexOf(acta.hero.strikeWord);
-
   return (
     <>
       <section className={styles.urgency} aria-label={acta.brand.method}>
@@ -32,7 +31,6 @@ export default function ActaPage() {
             <span className={styles.urgencyMark} aria-hidden="true" />
             {acta.urgency}
           </p>
-          <ActaCta section="urgencia" />
         </div>
       </section>
 
@@ -43,33 +41,10 @@ export default function ActaPage() {
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}>{acta.hero.eyebrow}</p>
           <RevealLines>
-            <h1 id="acta-hero">
-              {acta.hero.headline.slice(0, strikeIndex)}
-              <span className={styles.unbroken}>
-                <span className={styles.strikeWord}>
-                  {acta.hero.strikeWord}
-                  <svg
-                    viewBox="0 0 240 30"
-                    preserveAspectRatio="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      data-strike
-                      pathLength="1"
-                      strokeDasharray="1"
-                      d="M3 22 237 8"
-                    />
-                  </svg>
-                </span>
-                {acta.hero.headline.slice(
-                  strikeIndex + acta.hero.strikeWord.length,
-                )}
-              </span>
-            </h1>
+            <HeroHeadline />
           </RevealLines>
           <p className={styles.heroSubtitle}>{acta.hero.subtitle}</p>
           <div className={styles.heroActions}>
-            <ActaCta section="hero" />
             <a className={styles.textLink} href={`#${acta.method.id}`}>
               {acta.hero.secondary}
             </a>

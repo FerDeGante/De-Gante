@@ -27,6 +27,15 @@ export type ActaContent = {
   metadata: { title: string };
   brand: { name: string; method: string; edition: string };
   cta: { label: string; href: string };
+  floatingCta: { label: string; accessibleLabel: string };
+  navigation: {
+    label: string;
+    items: {
+      label: string;
+      href: string;
+      icon: "home" | "globe" | "shield" | "question";
+    }[];
+  };
   labels: {
     skip: string;
     receives: string;
@@ -44,7 +53,7 @@ export type ActaContent = {
   hero: {
     eyebrow: string;
     headline: string;
-    strikeWord: string;
+    highlights: [string, string];
     subtitle: string;
     secondary: string;
     proof: string[];
@@ -150,6 +159,19 @@ export const acta: ActaContent = {
     label: "Escríbeme ACTA",
     href: `https://wa.me/${whatsappNumber}?text=ACTA`,
   },
+  floatingCta: {
+    label: "ACTA",
+    accessibleLabel: "Escríbeme ACTA por WhatsApp",
+  },
+  navigation: {
+    label: "Navegación del Método ACTA",
+    items: [
+      { label: "Inicio", href: "#acta-contenido", icon: "home" },
+      { label: "Método", href: "#metodo", icon: "globe" },
+      { label: "Blindaje", href: "#acta-blindaje", icon: "shield" },
+      { label: "Preguntas", href: "#acta-preguntas", icon: "question" },
+    ],
+  },
   labels: {
     skip: "Ir al contenido",
     receives: "Recibes:",
@@ -168,7 +190,7 @@ export const acta: ActaContent = {
   hero: {
     eyebrow: "Abogado de empresas · STPS · IMSS · Infonavit",
     headline: "Que la autoridad no se lleve el dinero de tu empresa en multas.",
-    strikeWord: "multas",
+    highlights: ["no se lleve el dinero", "en multas"],
     subtitle:
       "Con el Método ACTA, cada obligación que te puede revisar la autoridad tiene su documento, con fecha real y con responsable. Antes de la inspección, para evitar la multa. Después, para reducirla o anularla.",
     secondary: "Ver cómo funciona ↓",
