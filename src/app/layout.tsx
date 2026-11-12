@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Inter_Tight } from "next/font/google";
 import type { ReactNode } from "react";
-import { SiteHeader } from "@/components/layout/site-header";
-import { Footer } from "@/components/layout/footer";
 import { site } from "@/content/site";
 import "./globals.css";
 
@@ -73,11 +71,7 @@ export default function RootLayout({
   return (
     <html lang="es-MX" className={`${inter.variable} ${interTight.variable}`}>
       <body className="bg-[color:var(--background)] text-[color:var(--text)] antialiased">
-        <SiteHeader />
-        <main id="contenido" className="relative">
-          {children}
-        </main>
-        <Footer />
+        {children}
       </body>
     </html>
   );
