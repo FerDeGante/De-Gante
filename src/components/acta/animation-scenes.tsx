@@ -222,10 +222,11 @@ export function MethodScene({ children }: { children: ReactNode }) {
             left: 0,
             width: "100%",
             autoAlpha: 0,
+            x: 18,
           });
           gsap.set(letters, { opacity: 0.15 });
           gsap.set(cells, { opacity: 0.15 });
-          gsap.set(steps[0], { autoAlpha: 1 });
+          gsap.set(steps[0], { autoAlpha: 1, x: 0 });
           gsap.set(letters[0], { opacity: 1 });
           gsap.set(cells[0], { opacity: 1 });
 
@@ -254,9 +255,8 @@ export function MethodScene({ children }: { children: ReactNode }) {
               { opacity: 1, duration: 0.7, ease: "power3.out" },
               position,
             );
-            timeline.fromTo(
+            timeline.to(
               step,
-              { autoAlpha: 0, x: 18 },
               { autoAlpha: 1, x: 0, duration: 0.7, ease: "power3.out" },
               position + 0.6,
             );
