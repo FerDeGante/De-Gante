@@ -197,10 +197,6 @@
   text-transform: uppercase;
   margin-top: 4px;
 }
-.header .cta {
-  min-height: 44px;
-  font-size: 0.75rem;
-}
 .urgency {
   background: var(--acta-sand);
 }
@@ -226,13 +222,6 @@
   background: var(--acta-terracotta);
   flex-shrink: 0;
 }
-.urgency .cta {
-  min-height: 36px;
-  padding: 9px 13px;
-  gap: 12px;
-  font-size: 0.68rem;
-  flex-shrink: 0;
-}
 .hero {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -246,27 +235,57 @@
 .hero .eyebrow {
   margin-bottom: 24px;
 }
-.unbroken {
+.heroHighlight {
   display: inline-block;
-  white-space: nowrap;
+  max-width: 100%;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  padding: 0.015em 0.1em 0.04em;
+  border-radius: 0.07em;
 }
-.strikeWord {
-  position: relative;
-  display: inline-block;
-  white-space: nowrap;
+.highlightMoney {
+  background: var(--acta-sand);
 }
-.strikeWord svg {
-  position: absolute;
-  width: 108%;
-  height: 0.37em;
-  left: -3%;
-  bottom: 0.3em;
-  pointer-events: none;
-  overflow: visible;
+.highlightFine {
+  background: var(--acta-terracotta);
 }
-.strikeWord path {
-  stroke: var(--acta-terracotta);
-  stroke-width: 4;
+.root .liquidNav {
+  --n-fg: var(--acta-ink);
+  --n-fg-soft: #736c63;
+  --n-tint: rgba(237, 225, 206, 0.24);
+  font-family: var(--acta-font-body), Arial, sans-serif;
+  flex-shrink: 0;
+}
+.root .liquidNav :global(.nimbus-item):focus-visible {
+  outline-color: var(--acta-ink);
+}
+.floatingWhatsapp {
+  position: fixed;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+  padding: 15px 21px;
+  border-radius: 999px;
+  background: var(--acta-terracotta);
+  color: var(--acta-white);
+  border: 2px solid var(--acta-white);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  transition: background-color 160ms ease;
+}
+.floatingWhatsapp:hover {
+  background: var(--acta-hover);
+}
+.floatingWhatsapp svg {
+  width: 26px;
+  height: 26px;
+  flex: none;
 }
 .heroSubtitle {
   max-width: 590px;
@@ -1223,7 +1242,7 @@
 }
 .footer {
   border-top: 1px solid var(--acta-greige);
-  padding-block: 38px;
+  padding-block: 38px 100px;
 }
 .legalIdentity {
   font-size: 0.75rem;
@@ -1273,10 +1292,6 @@
   }
   .heroActions {
     gap: 12px;
-  }
-  .heroActions .cta {
-    gap: 12px;
-    padding-inline: 16px;
   }
   .heroActions .textLink {
     font-size: 0.7rem;
@@ -1365,16 +1380,6 @@
   .wordmark span {
     font-size: 0.48rem;
   }
-  .header .cta {
-    min-height: 42px;
-    gap: 10px;
-    padding: 12px;
-    font-size: 0.67rem;
-  }
-  .header .cta svg {
-    width: 15px;
-    height: 15px;
-  }
   .urgency > div {
     align-items: flex-start;
     flex-wrap: wrap;
@@ -1384,16 +1389,6 @@
   .urgency p {
     font-size: 0.65rem;
     gap: 10px;
-  }
-  .urgency .cta {
-    margin-left: 17px;
-    min-height: 30px;
-    padding: 6px 10px;
-    font-size: 0.61rem;
-  }
-  .urgency .cta svg {
-    width: 14px;
-    height: 14px;
   }
   .hero {
     grid-template-columns: minmax(0, 1fr);
@@ -1422,11 +1417,6 @@
   .heroActions {
     gap: 18px;
     margin-top: 26px;
-  }
-  .heroActions .cta {
-    font-size: 0.74rem;
-    padding-inline: 16px;
-    gap: 15px;
   }
   .textLink {
     font-size: 0.72rem;
@@ -1771,7 +1761,7 @@
     font-size: 0.83rem;
   }
   .footer {
-    padding-block: 30px;
+    padding-block: 30px 105px;
   }
   .legalIdentity {
     font-size: 0.64rem;
@@ -1792,5 +1782,25 @@
   }
   .root :global(.pin-spacer) {
     scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .floatingWhatsapp {
+    right: max(18px, env(safe-area-inset-right));
+    bottom: calc(18px + env(safe-area-inset-bottom));
+    min-height: 56px;
+    padding-inline: 18px;
+  }
+}
+@media (max-width: 360px) {
+  .headerInner {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    padding-block: 18px;
+  }
+  .wordmark {
+    align-items: center;
   }
 }

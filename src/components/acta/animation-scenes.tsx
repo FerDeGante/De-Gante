@@ -31,8 +31,6 @@ export function RevealLines({ children }: { children: ReactNode }) {
           mask: "lines",
           autoSplit: true,
           onSplit(self) {
-            const strike =
-              heading.querySelector<SVGPathElement>("[data-strike]");
             const timeline = gsap.timeline();
             timeline.from(self.lines, {
               yPercent: 105,
@@ -40,17 +38,6 @@ export function RevealLines({ children }: { children: ReactNode }) {
               stagger: 0.045,
               ease: "power3.out",
             });
-            if (strike) {
-              timeline.fromTo(
-                strike,
-                { strokeDashoffset: 1 },
-                {
-                  strokeDashoffset: 0,
-                  duration: 0.6,
-                  ease: "power3.out",
-                },
-              );
-            }
             return timeline;
           },
         });
